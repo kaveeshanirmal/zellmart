@@ -1,0 +1,43 @@
+* {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Basic styling for the footer */
+  .footer {
+    font-size: 12px;
+    background-color: #f5f5f5;
+    color: #000000;
+    padding: 50px 0;
+  }
+
+  .footer.dark{
+    color: #f5f5f5;
+    background-color: #000000;
+  }
+  
+  .footer p {
+    margin-bottom: 0;
+  }
+  
+  .footerContainer {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .text-right {
+    text-align: right;
+  }

@@ -1,0 +1,28 @@
+.contactUs{
+    /* margin-top: 30px; */
+    font-size: 12px;
+    background-color:  #f5f5f5;
+    /* background-image: url('./Images/ContactUsbgLight.png'); */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+.contactUs.dark{
+    background-color:  #000000;
+    /* background-image: url('./Images/contactUsbgDark.png'); */
+}
+.wrapper-main{
+    animation: fadeIn 3s; 
+    width: 800px;
+    margin: 0 auto;
+}
+
+.wrapper-main.dark{
+    color: #f5f5f5;
+}
+
+.wrapper-content{
+    width:500px;
+    margin: 0 auto;
+}
+
