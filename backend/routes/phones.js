@@ -1,12 +1,14 @@
 const router = require("express").Router();
 let Phone = require("../models/phoneModels");
 
+// GET all phones
 router.route("/").get((req, res) => {
     Phone.find()
         .then((phones) => res.json(phones))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// GET phone by customId
 router.route("/:id").get((req, res) => {
     const { id } = req.params;
 
@@ -21,13 +23,15 @@ router.route("/:id").get((req, res) => {
         .catch((err) => res.status(500).json("Error: " + err));
 });
 
-router.route("/add").post((req, res) => {
-    const newPhone = new Phone(req.body);
-
-    newPhone
-        .save()
-        .then(() => res.json("Phone added!"))
-        .catch((err) => res.status(400).json("Error: " + err));
+// POST new phone
+router.post("/", async (req, res) => {
+    try {
+        const newPhone = new Phone(req.body);
+        await newPhone.save();
+        res.status(201).send({ message: "Phone added successfully" });
+    } catch (error) {
+        res.status(500).send({ message: "Error saving phone data", error });
+    }
 });
 
 module.exports = router;

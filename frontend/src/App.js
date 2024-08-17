@@ -6,7 +6,7 @@ import ContactUs from "./pages/ContactUs";
 import Footer from "./components/Footer";
 import { ThemeContext } from "./components/ThemeContextProvider";
 import PhoneDetails from "./components/phoneDetails";
-
+import PhoneForm from "./components/addNewPhones";
 function App() {
     const [darkMode, setDarkMode] = useState(false);
 
@@ -38,6 +38,7 @@ function App() {
                     </Route>
                     <Route path="/ContactUs" element={<ContactUs />}></Route>
                     <Route path="/phone/:id" element={<PhoneDetails />} />
+                    <Route path="/add" element={<PhoneForm />} />
                 </Routes>
                 <Footer />
             </BrowserRouter>

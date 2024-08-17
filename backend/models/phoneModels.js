@@ -1,4 +1,3 @@
-const availableTypedArrays = require("available-typed-arrays");
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;

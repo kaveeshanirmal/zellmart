@@ -7,12 +7,13 @@ const testPhones = [
     {
         customId: 1,
         imgURL: "https://example.com/iphone12.jpg",
-        quantity: "50",
+        quantity: 50,
+        available: "In-Stock",
         brand: "Apple",
         model: "iPhone 12",
         description:
             "The iPhone 12 features a new design with flat edges, 5G capability, and improved cameras.",
-
+        price: 123000,
         body: {
             dimensions: "146.7 x 71.5 x 7.4 mm",
             weight: "164g",
@@ -80,12 +81,13 @@ const testPhones = [
     {
         customId: 2,
         imgURL: "https://example.com/iphone13.jpg",
-        quantity: "75",
+        quantity: 75,
+        available: "In-Stock",
         brand: "Apple",
         model: "iPhone 13",
         description:
             "The iPhone 13 comes with improved battery life, a smaller notch, and new camera sensors.",
-
+        price: 153000,
         body: {
             dimensions: "146.7 x 71.5 x 7.7 mm",
             weight: "174g",
@@ -153,12 +155,13 @@ const testPhones = [
     {
         customId: 3,
         imgURL: "https://example.com/iphone14.jpg",
-        quantity: "100",
+        quantity: 100,
+        available: "Out of Stock",
         brand: "Apple",
         model: "iPhone 14",
         description:
             "The iPhone 14 features an enhanced A16 Bionic chip, advanced camera system, and emergency SOS via satellite.",
-
+        price: 250000,
         body: {
             dimensions: "146.7 x 71.5 x 7.8 mm",
             weight: "177g",
