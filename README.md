@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# ZellMart
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web-based marketplace for buying and selling mobile phones and accessories. Built using the MERN (MongoDB, Express, React, Node.js) stack, this platform allows users to browse products, order products online and shop owners to view pending orders, manage inventory etc.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+-   [Features](#features)
+-   [Tech Stack](#tech-stack)
+-   [Installation](#installation)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-   **To be completed**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+-   **Frontend:**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    -   React
+    -   HTML/CSS
+    -   Bootstrap or Material-UI (optional for UI components)
 
-### `npm run build`
+-   **Backend:**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    -   Node.js
+    -   Express.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-   **Database:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    -   MongoDB (NoSQL database)
 
-### `npm run eject`
+-   **Other Tools:**
+    -   Git for version control
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+-   Node.js and npm installed on your machine.
+-   MongoDB installed locally or access to a MongoDB Atlas cluster.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Clone the Repository
 
-## Learn More
+```bash
+git clone https://github.com/kaveeshanirmal/zellmart.git
+cd zellmart
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Install root-level dependencies (if any)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm install
+```
 
-### Code Splitting
+# Check Ports and MongoDB
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+-   Ensure that both port 3000 (frontend) and port 5000 (backend) are free.
+-   Make sure the MongoDB server is running (locally or via MongoDB Atlas).
 
-### Analyzing the Bundle Size
+# Navigate to the frontend directory and install dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+cd frontend
+npm install
+```
 
-### Making a Progressive Web App
+# Navigate to the backend directory and install dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+cd ../backend
+npm install
+```
 
-### Advanced Configuration
+# Start the Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+-   To start both the frontend and backend simultaneously, use the root-level script:
 
-### Deployment
+```bash
+# Ensure that both port 3000 (frontend) and port 5000 (backend) are free.
+# Make sure the MongoDB server is running (locally or via MongoDB Atlas).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+npm start
+```
 
-### `npm run build` fails to minify
+-   Alternatively, you can start them separately:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+# To start only the frontend
+npm run start:frontend
+
+# To start only the backend
+npm run start:backend
+```
