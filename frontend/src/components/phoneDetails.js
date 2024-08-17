@@ -75,17 +75,6 @@ const PhoneDetails = () => {
                                     height: "35px",
                                 }}
                             ></button>
-                            <button
-                                key="imagered"
-                                onClick={() => handleColorChange("red")}
-                                className={`color-button ${
-                                    selectedColor === "red" ? "active" : ""
-                                }`}
-                                style={{
-                                    backgroundColor: "red",
-                                    height: "35px",
-                                }}
-                            ></button>
                         </div>
 
                         <div className="phone-display">

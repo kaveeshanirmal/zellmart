@@ -1,33 +1,243 @@
 // scripts/addTestData.js
 const mongoose = require("mongoose");
 const Phone = require("../models/phoneModels");
-require("dotenv").config();
-
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+const mongoURI = "mongodb://localhost:27017/zellmart";
 
 const testPhones = [
     {
         customId: 1,
-        brand: "TestBrand",
-        model: "TestModel",
-        displaySize: 6.5,
-        storage: 128,
-        ram: 8,
-        batteryCapacity: 4000,
-        camera: "48MP + 12MP + 8MP",
-        price: "999.99",
-        imageblack: "https://example.com/black.jpg",
-        imageblue: "https://example.com/blue.jpg",
-        imagered: "https://example.com/red.jpg",
-        image1: "https://example.com/image1.jpg",
-        image2: "https://example.com/image2.jpg",
-        image3: "https://example.com/image3.jpg",
+        imgURL: "https://example.com/iphone12.jpg",
+        quantity: "50",
+        brand: "Apple",
+        model: "iPhone 12",
+        description:
+            "The iPhone 12 features a new design with flat edges, 5G capability, and improved cameras.",
+
+        body: {
+            dimensions: "146.7 x 71.5 x 7.4 mm",
+            weight: "164g",
+            build: "Glass front, glass back, aluminum frame",
+            sim: "Nano-SIM and eSIM",
+        },
+
+        display: {
+            type: "Super Retina XDR OLED",
+            size: "6.1 inches",
+            resolution: "1170 x 2532 pixels",
+            protection: "Ceramic Shield glass",
+        },
+
+        platform: {
+            os: "iOS 14, upgradable to iOS 17",
+            chipset: "Apple A14 Bionic",
+            cpu: "Hexa-core",
+            gpu: "Apple GPU (4-core graphics)",
+        },
+
+        memory: {
+            cardSlot: "No",
+            internal: "64GB 4GB RAM, 128GB 4GB RAM, 256GB 4GB RAM",
+        },
+
+        mainCamera: {
+            specs: "12 MP, f/1.6, 26mm (wide), 12 MP, f/2.4, 120˚ (ultrawide)",
+            features: "Dual-LED dual-tone flash, HDR (photo/panorama)",
+            video: "4K@24/30/60fps, 1080p@30/60/120/240fps",
+        },
+
+        selfieCamera: {
+            specs: "12 MP, f/2.2, 23mm (wide)",
+            features: "HDR",
+            video: "4K@24/30/60fps, 1080p@30/60/120fps",
+        },
+
+        sound: {
+            loudspeaker: "Yes, with stereo speakers",
+            jack: "No",
+        },
+
+        comms: {
+            wlan: "Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, hotspot",
+            bluetooth: "5.0, A2DP, LE",
+            positioning: "GPS, GLONASS, GALILEO, QZSS",
+            nfc: "Yes",
+        },
+
+        features: {
+            sensors:
+                "Face ID, accelerometer, gyro, proximity, compass, barometer",
+        },
+
+        battery: {
+            type: "Li-Ion 2815 mAh, non-removable",
+            charging: "Fast charging 20W, 50% in 30 min",
+        },
+
+        misc: {
+            colors: "Black, White, Red, Green, Blue",
+        },
     },
-    // Add more test phones as needed
+    {
+        customId: 2,
+        imgURL: "https://example.com/iphone13.jpg",
+        quantity: "75",
+        brand: "Apple",
+        model: "iPhone 13",
+        description:
+            "The iPhone 13 comes with improved battery life, a smaller notch, and new camera sensors.",
+
+        body: {
+            dimensions: "146.7 x 71.5 x 7.7 mm",
+            weight: "174g",
+            build: "Glass front, glass back, aluminum frame",
+            sim: "Nano-SIM and eSIM",
+        },
+
+        display: {
+            type: "Super Retina XDR OLED",
+            size: "6.1 inches",
+            resolution: "1170 x 2532 pixels",
+            protection: "Ceramic Shield glass",
+        },
+
+        platform: {
+            os: "iOS 15, upgradable to iOS 17",
+            chipset: "Apple A15 Bionic",
+            cpu: "Hexa-core",
+            gpu: "Apple GPU (4-core graphics)",
+        },
+
+        memory: {
+            cardSlot: "No",
+            internal: "128GB 4GB RAM, 256GB 4GB RAM, 512GB 4GB RAM",
+        },
+
+        mainCamera: {
+            specs: "12 MP, f/1.6, 26mm (wide), 12 MP, f/2.4, 120˚ (ultrawide)",
+            features: "Dual-LED dual-tone flash, HDR (photo/panorama)",
+            video: "4K@24/30/60fps, 1080p@30/60/120/240fps",
+        },
+
+        selfieCamera: {
+            specs: "12 MP, f/2.2, 23mm (wide)",
+            features: "HDR",
+            video: "4K@24/30/60fps, 1080p@30/60/120fps",
+        },
+
+        sound: {
+            loudspeaker: "Yes, with stereo speakers",
+            jack: "No",
+        },
+
+        comms: {
+            wlan: "Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, hotspot",
+            bluetooth: "5.0, A2DP, LE",
+            positioning: "GPS, GLONASS, GALILEO, QZSS",
+            nfc: "Yes",
+        },
+
+        features: {
+            sensors:
+                "Face ID, accelerometer, gyro, proximity, compass, barometer",
+        },
+
+        battery: {
+            type: "Li-Ion 3240 mAh, non-removable",
+            charging: "Fast charging 20W, 50% in 30 min",
+        },
+
+        misc: {
+            colors: "Starlight, Midnight, Blue, Pink, Red",
+        },
+    },
+    {
+        customId: 3,
+        imgURL: "https://example.com/iphone14.jpg",
+        quantity: "100",
+        brand: "Apple",
+        model: "iPhone 14",
+        description:
+            "The iPhone 14 features an enhanced A16 Bionic chip, advanced camera system, and emergency SOS via satellite.",
+
+        body: {
+            dimensions: "146.7 x 71.5 x 7.8 mm",
+            weight: "177g",
+            build: "Glass front, glass back, aluminum frame",
+            sim: "Nano-SIM and eSIM",
+        },
+
+        display: {
+            type: "Super Retina XDR OLED",
+            size: "6.1 inches",
+            resolution: "1170 x 2532 pixels",
+            protection: "Ceramic Shield glass",
+        },
+
+        platform: {
+            os: "iOS 16, upgradable to iOS 17",
+            chipset: "Apple A16 Bionic",
+            cpu: "Hexa-core",
+            gpu: "Apple GPU (5-core graphics)",
+        },
+
+        memory: {
+            cardSlot: "No",
+            internal: "128GB 6GB RAM, 256GB 6GB RAM, 512GB 6GB RAM",
+        },
+
+        mainCamera: {
+            specs: "12 MP, f/1.5, 26mm (wide), 12 MP, f/2.4, 120˚ (ultrawide)",
+            features: "Dual-LED dual-tone flash, HDR (photo/panorama)",
+            video: "4K@24/30/60fps, 1080p@30/60/120/240fps",
+        },
+
+        selfieCamera: {
+            specs: "12 MP, f/1.9, 23mm (wide)",
+            features: "HDR",
+            video: "4K@24/30/60fps, 1080p@30/60/120fps",
+        },
+
+        sound: {
+            loudspeaker: "Yes, with stereo speakers",
+            jack: "No",
+        },
+
+        comms: {
+            wlan: "Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, hotspot",
+            bluetooth: "5.3, A2DP, LE",
+            positioning: "GPS, GLONASS, GALILEO, QZSS",
+            nfc: "Yes",
+        },
+
+        features: {
+            sensors:
+                "Face ID, accelerometer, gyro, proximity, compass, barometer",
+        },
+
+        battery: {
+            type: "Li-Ion 3279 mAh, non-removable",
+            charging: "Fast charging 20W, 50% in 30 min",
+        },
+
+        misc: {
+            colors: "Midnight, Purple, Starlight, (Product) Red, Blue",
+        },
+    },
 ];
+
+mongoose
+    .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log("Connected to MongoDB");
+        return Phone.insertMany(testPhones);
+    })
+    .then(() => {
+        console.log("Data successfully inserted");
+        mongoose.disconnect();
+    })
+    .catch((err) => {
+        console.error("Error connecting to MongoDB", err);
+    });
 
 Phone.insertMany(testPhones)
     .then(() => {
