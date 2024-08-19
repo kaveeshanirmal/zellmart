@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {
+    Box,
+    Button,
+    Paper,
+    Stack,
+    TextField,
+    Typography,
+} from "@mui/material";
 
 const PhoneForm = () => {
+    const [numberError, setNumberError] = useState(false);
     const [phoneData, setPhoneData] = useState({
         customId: "",
         imgURL: "",
@@ -63,6 +72,12 @@ const PhoneForm = () => {
         },
     });
 
+    const extractGoogleDriveId = (url) => {
+        const regex = /https:\/\/drive\.google\.com\/file\/d\/([^\/?]+)/;
+        const match = url.match(regex);
+        return match ? match[1] : "";
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         const keys = name.split(".");
@@ -79,12 +94,27 @@ const PhoneForm = () => {
         }
     };
 
+    const handleNumberInput = (e) => {
+        const value = e.target.value;
+        if (isNaN(value)) {
+            setNumberError(true);
+        } else {
+            setNumberError(false);
+            handleChange(e);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Extract Google Drive ID from image URL and update phoneData
+        const imgURL = extractGoogleDriveId(phoneData.imgURL);
+        const updatedPhoneData = { ...phoneData, imgURL };
+
         try {
             const response = await axios.post(
                 "http://localhost:5000/api/phones",
-                phoneData
+                updatedPhoneData
             );
             alert("Phone data saved successfully!");
         } catch (error) {
@@ -94,415 +124,403 @@ const PhoneForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Create or Update Phone Model</h2>
-            <div>
-                <label>Custom ID:</label>
-                <input
-                    type="text"
-                    name="customId"
-                    value={phoneData.customId}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Image URL:</label>
-                <input
-                    type="text"
-                    name="imgURL"
-                    value={phoneData.imgURL}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Quantity:</label>
-                <input
-                    type="text"
-                    name="quantity"
-                    value={phoneData.quantity}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Availability:</label>
-                <input
-                    type="text"
-                    name="available"
-                    value={phoneData.available}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Brand:</label>
-                <input
-                    type="text"
-                    name="brand"
-                    value={phoneData.brand}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Model:</label>
-                <input
-                    type="text"
-                    name="model"
-                    value={phoneData.model}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Description:</label>
-                <textarea
-                    name="description"
-                    value={phoneData.description}
-                    onChange={handleChange}
-                    required
-                ></textarea>
-            </div>
-            <div>
-                <label>Price:</label>
-                <input
-                    type="text"
-                    name="price"
-                    value={phoneData.price}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+        <Box
+            sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "100vh",
+                backgroundColor: "#f5f5f5",
+                padding: 2,
+            }}
+        >
+            <Paper
+                elevation={3}
+                sx={{
+                    maxWidth: 600,
+                    width: "100%",
+                    padding: 4,
+                    borderRadius: 2,
+                }}
+            >
+                <Typography variant="h4" align="center" gutterBottom>
+                    Add New Phone
+                </Typography>
 
-            {/* Body Details */}
-            <h3>Body</h3>
-            <div>
-                <label>Dimensions:</label>
-                <input
-                    type="text"
-                    name="body.dimensions"
-                    value={phoneData.body.dimensions}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Weight:</label>
-                <input
-                    type="text"
-                    name="body.weight"
-                    value={phoneData.body.weight}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Build:</label>
-                <input
-                    type="text"
-                    name="body.build"
-                    value={phoneData.body.build}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Sim:</label>
-                <input
-                    type="text"
-                    name="body.sim"
-                    value={phoneData.body.sim}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                <Stack spacing={3}>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        General Information
+                    </Typography>
+                    <TextField
+                        label="Custom ID"
+                        name="customId"
+                        type="number"
+                        value={phoneData.customId}
+                        onChange={handleNumberInput}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Image URL"
+                        name="imgURL"
+                        value={phoneData.imgURL}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Quantity"
+                        name="quantity"
+                        value={phoneData.quantity}
+                        onChange={handleNumberInput}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Availability"
+                        name="available"
+                        value={phoneData.availability}
+                        multiline
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        label="Brand"
+                        name="brand"
+                        value={phoneData.brand}
+                        onChange={handleChange}
+                        multiline
+                        fullWidth
+                        required
+                    />
+                    <TextField
+                        label="Model"
+                        name="model"
+                        value={phoneData.model}
+                        onChange={handleChange}
+                        multiline
+                        fullWidth
+                        required
+                    />
+                    <TextField
+                        label="Description"
+                        name="description"
+                        value={phoneData.description}
+                        onChange={handleChange}
+                        multiline
+                        rows={4}
+                        required
+                    />
+                    <TextField
+                        label="Original Price"
+                        name="originalPrice"
+                        value={phoneData.originalPrice}
+                        onChange={handleNumberInput}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Price"
+                        name="price"
+                        value={phoneData.price}
+                        onChange={handleNumberInput}
+                        multiline
+                        required
+                    />
 
-            {/* Display Details */}
-            <h3>Display</h3>
-            <div>
-                <label>Type:</label>
-                <input
-                    type="text"
-                    name="display.type"
-                    value={phoneData.display.type}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Size:</label>
-                <input
-                    type="text"
-                    name="display.size"
-                    value={phoneData.display.size}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Resolution:</label>
-                <input
-                    type="text"
-                    name="display.resolution"
-                    value={phoneData.display.resolution}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Protection:</label>
-                <input
-                    type="text"
-                    name="display.protection"
-                    value={phoneData.display.protection}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Body
+                    </Typography>
+                    <TextField
+                        label="Dimensions"
+                        name="body.dimensions"
+                        value={phoneData.body.dimensions}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Weight"
+                        name="body.weight"
+                        value={phoneData.body.weight}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Build"
+                        name="body.build"
+                        value={phoneData.body.build}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Sim"
+                        name="body.sim"
+                        value={phoneData.body.sim}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Display
+                    </Typography>
+                    <TextField
+                        label="Type"
+                        name="display.type"
+                        value={phoneData.display.type}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Size"
+                        name="display.size"
+                        value={phoneData.display.size}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Resolution"
+                        name="display.resolution"
+                        value={phoneData.display.resolution}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Protection"
+                        name="display.protection"
+                        value={phoneData.display.protection}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
 
-            <h3>Platform</h3>
-            <div>
-                <label>OS:</label>
-                <input
-                    type="text"
-                    name="platform.os"
-                    value={phoneData.platform.os}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Chipset:</label>
-                <input
-                    type="text"
-                    name="platform.chipset"
-                    value={phoneData.platform.chipset}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>CPU:</label>
-                <input
-                    type="text"
-                    name="platform.cpu"
-                    value={phoneData.platform.cpu}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>GPU:</label>
-                <input
-                    type="text"
-                    name="platform.gpu"
-                    value={phoneData.platform.gpu}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Platform
+                    </Typography>
+                    <TextField
+                        label="OS"
+                        name="platform.os"
+                        value={phoneData.platform.os}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Chipset"
+                        name="platform.chipset"
+                        value={phoneData.platform.chipset}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="CPU"
+                        name="platform.cpu"
+                        value={phoneData.platform.cpu}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="GPU"
+                        name="platform.gpu"
+                        value={phoneData.platform.gpu}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
 
-            <h3>Memory</h3>
-            <div>
-                <label>Card Slot:</label>
-                <input
-                    type="text"
-                    name="memory.cardSlot"
-                    value={phoneData.memory.cardSlot}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Internal:</label>
-                <input
-                    type="text"
-                    name="memory.internal"
-                    value={phoneData.memory.internal}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Memory
+                    </Typography>
+                    <TextField
+                        label="Card Slot"
+                        name="memory.cardSlot"
+                        value={phoneData.memory.cardSlot}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Internal"
+                        name="memory.internal"
+                        value={phoneData.memory.internal}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
 
-            <h3>Main Camera</h3>
-            <div>
-                <label>Specs:</label>
-                <input
-                    type="text"
-                    name="mainCamera.specs"
-                    value={phoneData.mainCamera.specs}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Features:</label>
-                <input
-                    type="text"
-                    name="mainCamera.features"
-                    value={phoneData.mainCamera.features}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Video:</label>
-                <input
-                    type="text"
-                    name="mainCamera.video"
-                    value={phoneData.mainCamera.video}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Main Camera
+                    </Typography>
+                    <TextField
+                        label="Specs"
+                        name="mainCamera.specs"
+                        value={phoneData.mainCamera.specs}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Features"
+                        name="mainCamera.features"
+                        value={phoneData.mainCamera.features}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Video"
+                        name="mainCamera.video"
+                        value={phoneData.mainCamera.video}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
 
-            <h3>Selfie Camera</h3>
-            <div>
-                <label>Specs:</label>
-                <input
-                    type="text"
-                    name="selfieCamera.specs"
-                    value={phoneData.selfieCamera.specs}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Features:</label>
-                <input
-                    type="text"
-                    name="selfieCamera.features"
-                    value={phoneData.selfieCamera.features}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Video:</label>
-                <input
-                    type="text"
-                    name="selfieCamera.video"
-                    value={phoneData.selfieCamera.video}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Selfie Camera
+                    </Typography>
+                    <TextField
+                        label="Specs"
+                        name="selfieCamera.specs"
+                        value={phoneData.selfieCamera.specs}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Features"
+                        name="selfieCamera.features"
+                        value={phoneData.selfieCamera.features}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Video"
+                        name="selfieCamera.video"
+                        value={phoneData.selfieCamera.video}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
 
-            <h3>Sound</h3>
-            <div>
-                <label>Loudspeaker:</label>
-                <input
-                    type="text"
-                    name="sound.loudspeaker"
-                    value={phoneData.sound.loudspeaker}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Jack:</label>
-                <input
-                    type="text"
-                    name="sound.jack"
-                    value={phoneData.sound.jack}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Sound
+                    </Typography>
+                    <TextField
+                        label="Loudspeaker"
+                        name="sound.loudspeaker"
+                        value={phoneData.sound.loudspeaker}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Jack"
+                        name="sound.jack"
+                        value={phoneData.sound.jack}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
 
-            <h3>Comms</h3>
-            <div>
-                <label>WLAN:</label>
-                <input
-                    type="text"
-                    name="comms.wlan"
-                    value={phoneData.comms.wlan}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Bluetooth:</label>
-                <input
-                    type="text"
-                    name="comms.bluetooth"
-                    value={phoneData.comms.bluetooth}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Positioning:</label>
-                <input
-                    type="text"
-                    name="comms.positioning"
-                    value={phoneData.comms.positioning}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>NFC:</label>
-                <input
-                    type="text"
-                    name="comms.nfc"
-                    value={phoneData.comms.nfc}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Comms
+                    </Typography>
+                    <TextField
+                        label="WLAN"
+                        name="comms.wlan"
+                        value={phoneData.comms.wlan}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Bluetooth"
+                        name="comms.bluetooth"
+                        value={phoneData.comms.bluetooth}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Positioning"
+                        name="comms.positioning"
+                        value={phoneData.comms.positioning}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="NFC"
+                        name="comms.nfc"
+                        value={phoneData.comms.nfc}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
 
-            <h3>Features</h3>
-            <div>
-                <label>Sensors:</label>
-                <input
-                    type="text"
-                    name="features.sensors"
-                    value={phoneData.features.sensors}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Features
+                    </Typography>
+                    <TextField
+                        label="Sensors"
+                        name="features.sensors"
+                        value={phoneData.features.sensors}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
 
-            <h3>Battery</h3>
-            <div>
-                <label>Type:</label>
-                <input
-                    type="text"
-                    name="battery.type"
-                    value={phoneData.battery.type}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Charging:</label>
-                <input
-                    type="text"
-                    name="battery.charging"
-                    value={phoneData.battery.charging}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Battery
+                    </Typography>
+                    <TextField
+                        label="Type"
+                        name="battery.type"
+                        value={phoneData.battery.type}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
+                    <TextField
+                        label="Charging"
+                        name="battery.charging"
+                        value={phoneData.battery.charging}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
 
-            <h3>Misc</h3>
-            <div>
-                <label>Colors:</label>
-                <input
-                    type="text"
-                    name="misc.colors"
-                    value={phoneData.misc.colors}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+                    <Typography variant="h6" align="left" gutterBottom>
+                        Misc
+                    </Typography>
+                    <TextField
+                        label="Colors"
+                        name="misc.colors"
+                        value={phoneData.misc.colors}
+                        onChange={handleChange}
+                        multiline
+                        required
+                    />
 
-            <button type="submit">Save Phone</button>
-        </form>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        onClick={handleSubmit}
+                    >
+                        Save Phone
+                    </Button>
+                </Stack>
+            </Paper>
+        </Box>
     );
 };
-
 export default PhoneForm;

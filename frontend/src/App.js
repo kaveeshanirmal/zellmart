@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import { ThemeContext } from "./components/ThemeContextProvider";
 import PhoneDetails from "./components/phoneDetails";
 import PhoneForm from "./components/addNewPhones";
+import AllProducts from "./components/allProducts";
+
 function App() {
     const [darkMode, setDarkMode] = useState(false);
 
@@ -37,7 +39,8 @@ function App() {
                         {" "}
                     </Route>
                     <Route path="/ContactUs" element={<ContactUs />}></Route>
-                    <Route path="/phone/:id" element={<PhoneDetails />} />
+                    <Route path="/phones" element={<AllProducts />} />
+                    <Route path="/phones/:id" element={<PhoneDetails />} />
                     <Route path="/add" element={<PhoneForm />} />
                 </Routes>
                 <Footer />

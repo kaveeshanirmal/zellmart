@@ -4,6 +4,9 @@
     "description": "A web-based marketplace for buying and selling mobile phones and accessories. Built using the MERN (MongoDB, Express, React, Node.js) stack, this platform allows users to browse products, order products online and shop owners to view pending orders, manage inventory etc.",
     "main": "index.js",
     "dependencies": {
+        "@emotion/react": "^11.13.0",
+        "@emotion/styled": "^11.13.0",
+        "@mui/material": "^5.16.7",
         "abab": "^2.0.6",
         "accepts": "^1.3.8",
         "acorn": "^8.12.1",
