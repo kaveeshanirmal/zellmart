@@ -5,8 +5,16 @@ import Home from "./pages/Home";
 import ContactUs from "./pages/ContactUs";
 import Footer from "./components/Footer";
 import { ThemeContext } from "./components/ThemeContextProvider";
-import PhoneDetails from "./components/phoneDetails";
-import PhoneForm from "./components/addNewPhones";
+import ProductPage from "./pages/ProductPage";
+import CustOrdersPage from "./pages/CustOrdersPage";
+import LoginForm from "./pages/Login";
+import Register from "./pages/Register";
+import ProfilePage from "./pages/CustomerProfilePage";
+import ManagerProfilePage from "./pages/ManagerProfilePage";
+import ManagerPage from "./pages/ManagerPage";
+import ManagerOrders from "./components/ManagerOrders";
+import Inventory from "./components/ManagerInventory";
+import PhoneForm from "./components/ManagerAddNewPhones";
 import AllProducts from "./components/allProducts";
 
 function App() {
@@ -39,8 +47,38 @@ function App() {
                         {" "}
                     </Route>
                     <Route path="/ContactUs" element={<ContactUs />}></Route>
+                    <Route
+                        path="/productpage"
+                        element={<ProductPage />}
+                    ></Route>
+                    <Route
+                        path="/CustomerOrders"
+                        element={<CustOrdersPage />}
+                    ></Route>
+                    <Route path="/Login" element={<LoginForm />}></Route>
+                    <Route path="/Register" element={<Register />}></Route>
+                    <Route
+                        path="/CustomerProfile"
+                        element={<ProfilePage />}
+                    ></Route>
+                    <Route
+                        path="/ManagerProfile"
+                        element={<ManagerProfilePage />}
+                    ></Route>
+                    <Route
+                        path="/ManagerPage"
+                        element={<ManagerPage />}
+                    ></Route>
+                    <Route
+                        path="/ManagerOrders"
+                        element={<ManagerOrders />}
+                    ></Route>
+                    <Route
+                        path="/ManagerInventory"
+                        element={<Inventory />}
+                    ></Route>
                     <Route path="/phones" element={<AllProducts />} />
-                    <Route path="/phones/:id" element={<PhoneDetails />} />
+                    <Route path="/phones/:id" element={<ProductPage />} />
                     <Route path="/add" element={<PhoneForm />} />
                 </Routes>
                 <Footer />

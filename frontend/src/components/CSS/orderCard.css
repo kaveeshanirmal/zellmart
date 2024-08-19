@@ -1,0 +1,130 @@
+.order-page-container{
+    margin: auto;
+    margin-top: 50px;
+    width:80%;
+}
+.order-page-container h1{
+  margin-bottom: 30px;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    gap: 16px;
+  }
+  
+  .order-card {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+  }
+  .order-card:hover{
+    transform: scale(1.01);
+  }
+  
+  .order-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .status-delivered {
+    background-color: #e6e6e6;
+    color: #555;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  
+  .order-card-body {
+    display: flex;
+    align-items: center;
+  }
+  
+  .product-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 16px;
+  }
+  
+  .order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .product-name {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .product-info {
+    color: #888;
+    font-size: 14px;
+  }
+  
+  .order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+  
+  .ordercard-price{
+    width: 50%;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .ordercard-quantity {
+    width: 50%;
+    color: #555;
+  }
+  
+
+  .tabs {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+  }
+  .tabs.dark{
+  color: white;
+  }
+  
+  .tab-buttons {
+    margin-bottom: 10px;
+  }
+  
+  .tab-button {
+    font-weight:600;
+    font-size: 15px;
+    padding: 20px 80px;
+    cursor: pointer;
+    border: 1px;
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+  }
+  .tab-button.dark{
+    color: white;
+    background-color: #171717;
+  }
+  
+  .tab-button.active {
+    border-bottom: 3px solid #001D3D;
+    color:#001D3D;
+  }
+
+  .tab-button.dark.active {
+    border-bottom: 3px solid white;
+    color: white;
+  }
+
+  .tab-content {
+    width: 100%;
+    padding-top: 10px;
+   
+  }

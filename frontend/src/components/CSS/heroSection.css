@@ -48,18 +48,18 @@
   }
   
   .hero-content h1 {
-    font-size: 3rem;
+    font-size: 4rem;
     margin-bottom: 1rem;
   }
   
   .hero-content p {
-    font-size: 12px;
+    font-size: 18px;
     margin-bottom: 2rem;
   }
   
   .hero-button {
     padding: 0.5rem 1rem;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: bold;
     color:#ece9e2;
     background-color: rgba(255, 88, 51, 0);

@@ -25,12 +25,44 @@
   }
 
 .navBarLeft{
-    flex:3;
+    flex:4;
     display: flex;
     margin: 0 ;
     align-items: center;
     overflow: hidden;
     justify-content: space-between;
+}
+
+.searchBox{
+    align-items: center;
+    flex: 5;
+    display: flex;
+}
+
+.search-form{
+    width: 100%;
+    margin-left: 30%;
+    display: flex;
+}
+
+.search-btn{
+    margin-left: 10px;
+    font-size: 12px;
+    width:auto;
+    background-color:#f5f5f5;
+    color:#000000;
+    border: 2px solid #000000;
+    font-weight: bold;
+    padding: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.search-btn:hover{
+    color: #f5f5f5;
+    background-color: #000000;
+    border: 2px solid #f5f5f5;
 }
 
 .navBarLogo{
@@ -74,11 +106,10 @@
 }
 
 .navBarLink{
-    font-family: sans-serif;
     float: right;
     padding-left:15px;
     padding-right: 10px;
-    font-size: 15px;
+    font-size: 13px;
     color: #000000;
     font-weight: bold;
     cursor: pointer;
@@ -98,14 +129,14 @@
     text-decoration: underline;
 }
 .navBarCenter{
-    flex:8;
+    flex: 3;
     display: block;
     float: right;
     justify-content: flex-end;
 }
 
 .navBarRight{
-    flex: 1;
+    flex: 0.8;
     display: flex;
     align-items: center;
     float: right;
