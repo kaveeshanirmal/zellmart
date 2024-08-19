@@ -12,10 +12,10 @@ const AllProducts = () => {
             });
     }, []);
 
-    // const handleImageError = (e) => {
-    //     e.target.src =
-    //         "https://drive.google.com/thumbnail?id=176u7p4VrXMDFo6br0BVKFks-5RI_0NSO&sz=w1000"; // Placeholder image URL
-    // };
+    const handleImageError = (e) => {
+        e.target.src =
+            "https://drive.google.com/thumbnail?id=176u7p4VrXMDFo6br0BVKFks-5RI_0NSO&sz=w1000"; // Placeholder image URL
+    };
 
     return (
         <div
@@ -37,7 +37,7 @@ const AllProducts = () => {
                         height="340"
                         image={`https://drive.google.com/thumbnail?id=${product.imgURL}&sz=w1000`}
                         alt={product.model}
-                        // onError={handleImageError}
+                        onError={handleImageError}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
