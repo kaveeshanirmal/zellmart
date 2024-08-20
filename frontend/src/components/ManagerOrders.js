@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField, Button, Select, MenuItem } from '@mui/material';
 import './CSS/manager.css';
@@ -20,62 +19,63 @@ const Dashboard = () => {
             status: 'Processing',
             isEditing: false
         },
-        
-{
-    orderId: 2,
-    phoneId: 102,
-    phoneModel: 'product 2',
-    customerId: 1002,
-    customerName: 'Judith H. Fritsche',
-    customerNumber: (+57)-305-5579-759,
-    customerAddress: 'SULLIVAN/Kentucky',
-    date: '25 April 2024',
-    total: 70,
-    quantity: 1,
-    status: 'Processing'
-},
-{
-    orderId: 3,
-    phoneId: 103,
-    phoneModel: 'product 3',
-    customerId: 1003,
-    customerName: 'Peter T. Smith',
-    customerNumber: (+33)-655-5187-93,
-    customerAddress: 'Yreka/California',
-    date: '25 April 2024',
-    total: 200,
-    quantity: 1,
-    status: 'Processing'
-},
-{
-    orderId: 4,
-    phoneId: 104,
-    phoneModel: 'product 4',
-    customerId: 1004,
-    customerName: 'Emmanuel J. Delcid',
-    customerNumber: (+30)-693-5553-637,
-    customerAddress: 'Atlanta/Georgia',
-    date: '21 April 2024',
-    total: 150,
-    quantity: 1,
-    status: 'Processing'
-},
-{
-    orderId: 5,
-    phoneId: 105,
-    phoneModel: 'product 5',
-    customerId: 1005,
-    customerName: 'William J. Cook',
-    customerNumber: (+91)-855-5446-150,
-    customerAddress: 'Rosenberg/Texas',
-    date: '18 April 2024',
-    total: 100,
-    quantity: 1,
-    status: 'Processing'
-}
-]);
-        // Other orders...
-    
+        {
+            orderId: 2,
+            phoneId: 102,
+            phoneModel: 'product 2',
+            customerId: 1002,
+            customerName: 'Judith H. Fritsche',
+            customerNumber: '(+57)-305-5579-759',
+            customerAddress: 'SULLIVAN/Kentucky',
+            date: '25 April 2024',
+            total: 70,
+            quantity: 1,
+            status: 'Processing',
+            isEditing: false
+        },
+        {
+            orderId: 3,
+            phoneId: 103,
+            phoneModel: 'product 3',
+            customerId: 1003,
+            customerName: 'Peter T. Smith',
+            customerNumber: '(+33)-655-5187-93',
+            customerAddress: 'Yreka/California',
+            date: '25 April 2024',
+            total: 200,
+            quantity: 1,
+            status: 'Processing',
+            isEditing: false
+        },
+        {
+            orderId: 4,
+            phoneId: 104,
+            phoneModel: 'product 4',
+            customerId: 1004,
+            customerName: 'Emmanuel J. Delcid',
+            customerNumber: '(+30)-693-5553-637',
+            customerAddress: 'Atlanta/Georgia',
+            date: '21 April 2024',
+            total: 150,
+            quantity: 1,
+            status: 'Processing',
+            isEditing: false
+        },
+        {
+            orderId: 5,
+            phoneId: 105,
+            phoneModel: 'product 5',
+            customerId: 1005,
+            customerName: 'William J. Cook',
+            customerNumber: '(+91)-855-5446-150',
+            customerAddress: 'Rosenberg/Texas',
+            date: '18 April 2024',
+            total: 100,
+            quantity: 1,
+            status: 'Processing',
+            isEditing: false
+        }
+    ]);
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
@@ -113,9 +113,9 @@ const Dashboard = () => {
     );
 
     return (
-        <div style={{ marginTop: '50px', width: '80%', margin: 'auto' }}>
-            <Grid container spacing={3} justifyContent="center" style={{ marginBottom: '20px' }}>
-                <Grid item xs={12} sm={6} md={2}>
+        <div style={{ marginTop: '150px', width: '80%', margin: 'auto' }}>
+            <Grid container spacing={3} justifyContent="center" style={{ marginBottom: '20px'  , marginTop : "150px"}}>
+                <Grid item xs={12} sm={6} md={2} style = {{backgroundColor : "#001d3d" , color : "white"}}>
                     <Card className='manager-card'>
                         <CardContent>
                             <Typography variant="h5" align="center">Revenue</Typography>
@@ -123,7 +123,7 @@ const Dashboard = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item xs={12} sm={6} md={2}>
+                <Grid item xs={12} sm={6} md={2} style = {{backgroundColor : "#001d3d" , color : "white"}}>
                     <Card className='manager-card'>
                         <CardContent>
                             <Typography variant="h5" align="center">Total Sales</Typography>
@@ -147,20 +147,20 @@ const Dashboard = () => {
             <Grid container spacing={3} style={{ marginTop: '20px' }}>
                 <Grid item xs={12} md={8}>
                     <Table>
-                        <TableHead style={{ backgroundColor: '#D3D3D3' }}>
-                            <TableRow>
-                                <TableCell>Order ID</TableCell>
-                                <TableCell>Phone ID</TableCell>
-                                <TableCell>Customer ID</TableCell>
-                                <TableCell>Date</TableCell>
-                                <TableCell>Product Model</TableCell>
-                                <TableCell>Price</TableCell>
-                                <TableCell>Quantity</TableCell>
-                                <TableCell>Customer Name</TableCell>
-                                <TableCell>Phone No.</TableCell>
-                                <TableCell>Address</TableCell>
-                                <TableCell>Status</TableCell>
-                                <TableCell align="center">Actions</TableCell>
+                        <TableHead style={{ backgroundColor: '#001d3d'  }}>
+                            <TableRow >
+                                <TableCell style={{color : "white"}}>Order ID</TableCell>
+                                <TableCell style={{color : "white"}}>Phone ID</TableCell>
+                                <TableCell style={{color : "white"}}>Customer ID</TableCell>
+                                <TableCell style={{color : "white"}}>Date</TableCell>
+                                <TableCell style={{color : "white"}}>Product Model</TableCell>
+                                <TableCell style={{color : "white"}}>Price</TableCell>
+                                <TableCell style={{color : "white"}}>Quantity</TableCell>
+                                <TableCell style={{color : "white"}}>Customer Name</TableCell>
+                                <TableCell style={{color : "white"}}>Phone No.</TableCell>
+                                <TableCell style={{color : "white"}}>Address</TableCell>
+                                <TableCell style={{color : "white"}}>Status</TableCell>
+                                <TableCell align="center" style={{color : "white"}}>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -191,13 +191,16 @@ const Dashboard = () => {
                                         )}
                                     </TableCell>
                                     <TableCell align="center">
-                                        <Button
-                                            variant="outlined"
-                                            color="primary"
-                                            onClick={() => handleEditClick(order.orderId)}
-                                        >
-                                            {order.isEditing ? 'Save' : 'Edit'}
-                                        </Button>
+                                        {order.status !== 'Completed' && (
+                                            <Button
+                                                variant="outlined"
+                                                color="primary"
+                                                style = {{backgroundColor: "#001d3d" , color : "white"}}
+                                                onClick={() => handleEditClick(order.orderId)}
+                                            >
+                                                {order.isEditing ? 'Save' : 'Edit'}
+                                            </Button>
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -210,6 +213,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
-   

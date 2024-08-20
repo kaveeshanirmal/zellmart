@@ -117,7 +117,7 @@ const Dashboard = () => {
     };
 
     return (
-        <div style={{ marginTop: '50px', width: '80%', margin: 'auto' }}>
+        <div style={{ marginTop: '150px', width: '80%', margin: 'auto' }}>
             <br /><br /><br />
             <Grid container spacing={3} justifyContent="center" style={{ marginBottom: '20px' }}>
                 <Grid item xs={12} sm={6} md={2}>
@@ -203,22 +203,22 @@ const Dashboard = () => {
             <Grid container spacing={3} style={{ marginTop: '20px' }}>
                 <Grid item xs={12} md={8}>
                     <Table>
-                        <TableHead style={{ backgroundColor: '#D3D3D3' }}>
+                        <TableHead style={{ backgroundColor: '#001d3d' }}>
                             <TableRow>
-                                <TableCell>Order ID</TableCell>
-                                <TableCell>Phone ID</TableCell>
-                                <TableCell>Customer ID</TableCell>
-                                <TableCell>Date</TableCell>
-                                <TableCell>Product Model</TableCell>
-                                <TableCell>Price</TableCell>
-                                <TableCell>Quantity</TableCell>
+                                <TableCell style={{color : "white"}}>Order ID</TableCell>
+                                <TableCell style={{color : "white"}}>Phone ID</TableCell>
+                                <TableCell style={{color : "white"}}>Customer ID</TableCell>
+                                <TableCell style={{color : "white"}}>Date</TableCell>
+                                <TableCell style={{color : "white"}}>Product Model</TableCell>
+                                <TableCell style={{color : "white"}}>Price</TableCell>
+                                <TableCell style={{color : "white"}}>Quantity</TableCell>
                                
-                                <TableCell>Customer Name</TableCell>
+                                <TableCell style={{color : "white"}}>Customer Name</TableCell>
                                 
-                                <TableCell>Phone No.</TableCell>
-                                <TableCell>Address</TableCell>
-                                <TableCell>Status</TableCell>
-                                <TableCell align="center">Actions</TableCell>
+                                <TableCell style={{color : "white"}}>Phone No.</TableCell>
+                                <TableCell style={{color : "white"}}>Address</TableCell>
+                                <TableCell style={{color : "white"}}>Status</TableCell>
+                                <TableCell align="center" style={{color : "white"}}>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -239,14 +239,14 @@ const Dashboard = () => {
                                         <div style={{ display: 'flex', gap: '10px' }}>
                                             <Button
                                                 variant="contained"
-                                                style={{ backgroundColor: 'green', color: 'white' }}
+                                                style={{ backgroundColor: '#001d3d', color: 'white' }}
                                                 onClick={() => handleAccept(order.orderId)}
                                             >
                                                 Accept
                                             </Button>
                                             <Button
                                                 variant="contained"
-                                                style={{ backgroundColor: 'red', color: 'white' }}
+                                                style={{ backgroundColor: 'grey', color: 'white' }}
                                                 onClick={() => handleReject(order.orderId)}
                                             >
                                                 Reject
@@ -265,3 +265,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
