@@ -1,88 +1,215 @@
+
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableHead, TableRow,  TextField } from '@mui/material';
-import './CSS/manager.css'
+import { Card, CardContent, Typography, Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField, Button, Select, MenuItem } from '@mui/material';
+import './CSS/manager.css';
 
-
-const ManagerOrders = () => {
+const Dashboard = () => {
     const [searchQuery, setSearchQuery] = useState('');
-
-    const [orders] = useState([
-        { id: '#RB5625', date: '29 April 2024', product: 'product-1(1)', customerName: 'Anna M. Hines', email: 'anna.hines@mail.com', phone: '(+1)-555-1564-261', address: 'Burr Ridge/Illinois', paymentType: 'Credit Card', status: 'Completed', amount: 120 },
-        { id: '#RB9652', date: '25 April 2024', product: 'product-4', customerName: 'Judith H. Fritsche', email: 'judith.fritsche@mail.com', phone: '(+57)-305-5579-759', address: 'SULLIVAN/Kentucky', paymentType: 'Credit Card', status: 'Completed', amount: 70 },
-        { id: '#RB5984', date: '25 April 2024', product: 'product-5', customerName: 'Peter T. Smith', email: 'peter.smith@mail.com', phone: '(+33)-655-5187-93', address: 'Yreka/California', paymentType: 'Pay Pal', status: 'Completed', amount: 200 },
-        { id: '#RB3625', date: '21 April 2024', product: 'product-6', customerName: 'Emmanuel J. Delcid', email: 'emmanuel.delcid@mail.com', phone: '(+30)-693-5553-637', address: 'Atlanta/Georgia', paymentType: 'Pay Pal', status: 'Processing', amount: 150 },
-        { id: '#RB8652', date: '18 April 2024', product: 'product-1(2)', customerName: 'William J. Cook', email: 'william.cook@mail.com', phone: '(+91)-855-5446-150', address: 'Rosenberg/Texas', paymentType: 'Credit Card', status: 'Processing', amount: 100 }
-    ]);
-
+    const [orders, setOrders] = useState([
+        {
+            orderId: 1,
+            phoneId: 101,
+            phoneModel: 'product 1',
+            customerId: 1001,
+            customerName: 'Anna M. Hines',
+            customerNumber: '(+1)-555-1564-261',
+            customerAddress: 'Burr Ridge/Illinois',
+            date: '29 April 2024',
+            total: 120,
+            quantity: 1,
+            status: 'Processing',
+            isEditing: false
+        },
+        
+{
+    orderId: 2,
+    phoneId: 102,
+    phoneModel: 'product 2',
+    customerId: 1002,
+    customerName: 'Judith H. Fritsche',
+    customerNumber: (+57)-305-5579-759,
+    customerAddress: 'SULLIVAN/Kentucky',
+    date: '25 April 2024',
+    total: 70,
+    quantity: 1,
+    status: 'Processing'
+},
+{
+    orderId: 3,
+    phoneId: 103,
+    phoneModel: 'product 3',
+    customerId: 1003,
+    customerName: 'Peter T. Smith',
+    customerNumber: (+33)-655-5187-93,
+    customerAddress: 'Yreka/California',
+    date: '25 April 2024',
+    total: 200,
+    quantity: 1,
+    status: 'Processing'
+},
+{
+    orderId: 4,
+    phoneId: 104,
+    phoneModel: 'product 4',
+    customerId: 1004,
+    customerName: 'Emmanuel J. Delcid',
+    customerNumber: (+30)-693-5553-637,
+    customerAddress: 'Atlanta/Georgia',
+    date: '21 April 2024',
+    total: 150,
+    quantity: 1,
+    status: 'Processing'
+},
+{
+    orderId: 5,
+    phoneId: 105,
+    phoneModel: 'product 5',
+    customerId: 1005,
+    customerName: 'William J. Cook',
+    customerNumber: (+91)-855-5446-150,
+    customerAddress: 'Rosenberg/Texas',
+    date: '18 April 2024',
+    total: 100,
+    quantity: 1,
+    status: 'Processing'
+}
+]);
+        // Other orders...
     
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
     };
 
-    const filteredOrders = orders
-        .filter(order => order.status === 'Completed')
-        .filter((order) =>
-            order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            order.product.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            order.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            order.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            order.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            order.address.toLowerCase().includes(searchQuery.toLowerCase())
+    const handleEditClick = (orderId) => {
+        setOrders(prevOrders =>
+            prevOrders.map(order =>
+                order.orderId === orderId ? { ...order, isEditing: !order.isEditing } : order
+            )
         );
+    };
+
+    const handleStatusChange = (orderId, newStatus) => {
+        setOrders(prevOrders =>
+            prevOrders.map(order =>
+                order.orderId === orderId ? { ...order, status: newStatus, isEditing: false } : order
+            )
+        );
+    };
+
+    const totalRevenue = orders
+        .filter(order => order.status === 'Completed')
+        .reduce((sum, order) => sum + order.total, 0);
+
+    const totalSales = orders.filter(order => order.status === 'Completed').length;
+
+    const filteredOrders = orders.filter((order) =>
+        order.orderId.toString().includes(searchQuery.toLowerCase()) ||
+        order.phoneModel.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        order.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        order.customerNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        order.customerAddress.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        order.status.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
-        <div style={{ padding: '20px', marginTop: '100px', width:'80%', margin:'auto'}}>
-            <br/><br/>
-            <center><h1>Orders</h1></center>
-            <br/><br/>
-
-            <input 
+        <div style={{ marginTop: '50px', width: '80%', margin: 'auto' }}>
+            <Grid container spacing={3} justifyContent="center" style={{ marginBottom: '20px' }}>
+                <Grid item xs={12} sm={6} md={2}>
+                    <Card className='manager-card'>
+                        <CardContent>
+                            <Typography variant="h5" align="center">Revenue</Typography>
+                            <Typography variant="h6" align="center">${totalRevenue}</Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} sm={6} md={2}>
+                    <Card className='manager-card'>
+                        <CardContent>
+                            <Typography variant="h5" align="center">Total Sales</Typography>
+                            <Typography variant="h6" align="center">{totalSales}</Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+            </Grid>
+            
+            <TextField
                 type="text"
                 placeholder="Search"
-                className='searchbox'
                 variant="outlined"
                 fullWidth
                 value={searchQuery}
                 onChange={handleSearch}
-                style={{ marginBottom: '20px', marginLeft: '230px', marginRight: '230px', width: '800px' , padding: '8px'}}
+                className='manager-textField'
+                style={{ marginTop: '30px', width: '800px', padding: '8px' }}
             />
-            
 
-            
-                <Table>
-                    <TableHead style={{ backgroundColor: '#D3D3D3' }}>
-                        <TableRow>
-                            <TableCell>Order ID</TableCell>
-                            <TableCell>Date</TableCell>
-                            <TableCell>Product</TableCell>
-                            <TableCell>Customer Name</TableCell>
-                            <TableCell>Email ID</TableCell>
-                            <TableCell>Phone No.</TableCell>
-                            <TableCell>Address</TableCell>
-                            <TableCell>Status</TableCell>
-                            
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredOrders.map((order) => (
-                            <TableRow key={order.id}>
-                                <TableCell>{order.id}</TableCell>
-                                <TableCell>{order.date}</TableCell>
-                                <TableCell>{order.product}</TableCell>
-                                <TableCell>{order.customerName}</TableCell>
-                                <TableCell>{order.email}</TableCell>
-                                <TableCell>{order.phone}</TableCell>
-                                <TableCell>{order.address}</TableCell>
-                                <TableCell>{order.status}</TableCell>
-                                
+            <Grid container spacing={3} style={{ marginTop: '20px' }}>
+                <Grid item xs={12} md={8}>
+                    <Table>
+                        <TableHead style={{ backgroundColor: '#D3D3D3' }}>
+                            <TableRow>
+                                <TableCell>Order ID</TableCell>
+                                <TableCell>Phone ID</TableCell>
+                                <TableCell>Customer ID</TableCell>
+                                <TableCell>Date</TableCell>
+                                <TableCell>Product Model</TableCell>
+                                <TableCell>Price</TableCell>
+                                <TableCell>Quantity</TableCell>
+                                <TableCell>Customer Name</TableCell>
+                                <TableCell>Phone No.</TableCell>
+                                <TableCell>Address</TableCell>
+                                <TableCell>Status</TableCell>
+                                <TableCell align="center">Actions</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-           
+                        </TableHead>
+                        <TableBody>
+                            {filteredOrders.map((order) => (
+                                <TableRow key={order.orderId}>
+                                    <TableCell>{order.orderId}</TableCell>
+                                    <TableCell>{order.phoneId}</TableCell>
+                                    <TableCell>{order.customerId}</TableCell>
+                                    <TableCell>{order.date}</TableCell>
+                                    <TableCell>{order.phoneModel}</TableCell>
+                                    <TableCell>{order.total}</TableCell>
+                                    <TableCell>{order.quantity}</TableCell>
+                                    <TableCell>{order.customerName}</TableCell>
+                                    <TableCell>{order.customerNumber}</TableCell>
+                                    <TableCell>{order.customerAddress}</TableCell>
+                                    <TableCell>
+                                        {order.isEditing ? (
+                                            <Select
+                                                value={order.status}
+                                                onChange={(e) => handleStatusChange(order.orderId, e.target.value)}
+                                            >
+                                                <MenuItem value="Processing">Processing</MenuItem>
+                                                <MenuItem value="Out for Delivery">Out for Delivery</MenuItem>
+                                                <MenuItem value="Completed">Completed</MenuItem>
+                                            </Select>
+                                        ) : (
+                                            order.status
+                                        )}
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <Button
+                                            variant="outlined"
+                                            color="primary"
+                                            onClick={() => handleEditClick(order.orderId)}
+                                        >
+                                            {order.isEditing ? 'Save' : 'Edit'}
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Grid>
+            </Grid>
         </div>
     );
 };
 
-export default ManagerOrders;
+export default Dashboard;
+
+
+   
