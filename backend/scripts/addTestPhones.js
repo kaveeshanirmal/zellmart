@@ -733,5 +733,5 @@ mongoose
     })
     .catch((err) => {
         console.error("Error connecting to MongoDB", err);
-        mongoose.disconnect(); // Ensure disconnection on error
+        mongoose.disconnect();
     });

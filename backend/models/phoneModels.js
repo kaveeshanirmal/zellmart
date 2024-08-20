@@ -75,6 +75,9 @@ const phoneSchema = new Schema({
     misc: {
         colors: { type: String, required: true }, // Available colors (e.g., Black, Blue, Red)
     },
+
+    isBestSeller: { type: Boolean, required: true, default: false }, // Best seller status
+    isNewArrived: { type: Boolean, required: true, default: false }, // Newly arrived status
 });
 
 const Phone = mongoose.model("Phone", phoneSchema);
