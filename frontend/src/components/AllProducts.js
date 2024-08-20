@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CardMedia,
+    Chip,
+    Typography,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 
 const AllProducts = () => {
     const [products, setProducts] = useState([]);
@@ -17,6 +26,15 @@ const AllProducts = () => {
             "https://drive.google.com/thumbnail?id=176u7p4VrXMDFo6br0BVKFks-5RI_0NSO&sz=w1000"; // Placeholder image URL
     };
 
+    const getChipColor = (availability) => {
+        console.log(availability);
+        if (availability === true) {
+            return <Chip label="In stock" color="success" />;
+        } else {
+            return <Chip label="Sold Out" color="error" />;
+        }
+    };
+
     return (
         <div
             style={{
@@ -29,7 +47,7 @@ const AllProducts = () => {
         >
             {products.map((product) => (
                 <Card
-                    key={product._id}
+                    key={product.customId}
                     sx={{ maxWidth: 345, margin: 2, borderRadius: 5 }}
                 >
                     <CardMedia
@@ -47,11 +65,26 @@ const AllProducts = () => {
                             {product.description}
                         </Typography>
                         <Typography variant="body1" color="text.primary">
-                            Price: ${product.price}
+                            Price: Rs.{product.price}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Availability: {product.availability}
-                        </Typography>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                mt: 3,
+                            }}
+                        >
+                            {getChipColor(product.availability)}
+                            <Button
+                                variant="outlined"
+                                color="secondary"
+                                component={Link}
+                                to={`/phones/${product.customId}`}
+                            >
+                                View Details
+                            </Button>
+                        </Box>
                     </CardContent>
                 </Card>
             ))}

@@ -3,7 +3,11 @@ import axios from "axios";
 import {
     Box,
     Button,
+    FormControlLabel,
+    FormLabel,
     Paper,
+    Radio,
+    RadioGroup,
     Stack,
     TextField,
     Typography,
@@ -18,6 +22,9 @@ const PhoneForm = () => {
         brand: "",
         model: "",
         description: "",
+        availability: "true",
+        originalPrice: "",
+        price: "",
         body: {
             dimensions: "",
             weight: "",
@@ -75,7 +82,7 @@ const PhoneForm = () => {
     const extractGoogleDriveId = (url) => {
         const regex = /https:\/\/drive\.google\.com\/file\/d\/([^\/?]+)/;
         const match = url.match(regex);
-        return match ? match[1] : "";
+        return match ? match[1] : url;
     };
 
     const handleChange = (e) => {
@@ -102,6 +109,10 @@ const PhoneForm = () => {
             setNumberError(false);
             handleChange(e);
         }
+    };
+
+    const handleAvailabilityChange = (e) => {
+        setPhoneData({ ...phoneData, availability: e.target.value });
     };
 
     const handleSubmit = async (e) => {
@@ -176,13 +187,37 @@ const PhoneForm = () => {
                         multiline
                         required
                     />
-                    <TextField
-                        label="Availability"
-                        name="available"
-                        value={phoneData.availability}
-                        multiline
-                        onChange={handleChange}
-                    />
+
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            mt: 3,
+                        }}
+                    >
+                        <FormLabel style={{ marginRight: "30px" }}>
+                            Availability
+                        </FormLabel>
+
+                        <RadioGroup
+                            aria-labelledby="availability"
+                            value={phoneData.availability}
+                            name="radio-buttons-group"
+                            onChange={handleAvailabilityChange}
+                            row
+                        >
+                            <FormControlLabel
+                                value="true"
+                                control={<Radio />}
+                                label="In Stock"
+                            />
+                            <FormControlLabel
+                                value="false"
+                                control={<Radio />}
+                                label="Sold Out"
+                            />
+                        </RadioGroup>
+                    </Box>
                     <TextField
                         label="Brand"
                         name="brand"

@@ -1,7 +1,7 @@
 .product-page {
     margin-left: 20%;
     margin-bottom: 50px;
-    width:80%;
+    width: 80%;
     display: flex;
     padding: 20px;
     font-family: Arial, sans-serif;
@@ -48,11 +48,23 @@
 
 .sold-out {
     justify-content: center;
-    font-size: 10px;
+    font-size: 12px;
     color: rgb(226, 223, 223);
     margin-left: 10px;
+    padding: 3px 6px;
+    border-radius: 3px;
+    background-color: #333;
 }
 
+.in-stock {
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+    margin-left: 10px;
+    padding: 3px 6px;
+    border-radius: 3px;
+    background-color: green;
+}
 
 .short-description {
     margin: 20px 0;
@@ -80,17 +92,16 @@
     border: 2px solid #ccc;
 }
 
-
 .order-button {
-    background-color: #001D3D;
+    background-color: #001d3d;
     color: white;
-    border: 2px solid #001D3D;
+    border: 2px solid #001d3d;
 }
 
 .order-button:hover {
     background-color: white;
-    color: #001D3D;
-    border: 2px solid #001D3D;
+    color: #001d3d;
+    border: 2px solid #001d3d;
 }
 
 .badges {
@@ -131,8 +142,8 @@
     outline: none;
 }
 
-.product-details-container{
-    margin:  0 auto;
+.product-details-container {
+    margin: 0 auto;
     margin-bottom: 50px;
     width: 80%;
 }
@@ -140,13 +151,13 @@
 .phone-details {
     width: 100%;
     max-width: 100%;
-    margin: 0 ;
+    margin: 0;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
 }
 
-.phone-details th, .phone-details td {
-  
+.phone-details th,
+.phone-details td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -166,10 +177,12 @@
 }
 
 @media (max-width: 600px) {
-    .phone-details, .phone-details th, .phone-details td {
+    .phone-details,
+    .phone-details th,
+    .phone-details td {
         display: block;
         width: 100%;
-}
+    }
 
     .phone-details td {
         text-align: left;

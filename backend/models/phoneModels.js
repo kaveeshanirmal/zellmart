@@ -7,7 +7,7 @@ const phoneSchema = new Schema({
     customId: { type: Number, required: true }, // Unique ID for the phone
     imgURL: { type: String, required: true }, // URL to the main image of the phone
     quantity: { type: Number, required: true }, // Quantity available
-    availability: { type: String, required: false, default: "" }, // Availability status
+    availability: { type: Boolean, required: true }, // Availability status
     brand: { type: String, required: true }, // Phone brand (e.g., Apple, Samsung)
     model: { type: String, required: true }, // Phone model (e.g., iPhone 12)
     description: { type: String, required: true }, // Description of the phone
