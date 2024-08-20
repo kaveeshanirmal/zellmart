@@ -1,4 +1,3 @@
-// scripts/addTestData.js
 const mongoose = require("mongoose");
 const Phone = require("../models/phoneModels");
 const mongoURI = "mongodb://localhost:27017/zellmart";

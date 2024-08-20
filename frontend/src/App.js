@@ -15,7 +15,7 @@ import ManagerPage from "./pages/ManagerPage";
 import ManagerOrders from "./components/ManagerOrders";
 import Inventory from "./components/ManagerInventory";
 import PhoneForm from "./components/ManagerAddNewPhones";
-import AllProducts from "./components/AllProducts";
+import AllProducts from "./pages/AllProducts";
 
 function App() {
     const [darkMode, setDarkMode] = useState(false);

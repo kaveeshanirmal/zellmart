@@ -8,7 +8,8 @@ import {
     Chip,
     Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "../components/CSS/allProducts.css";
 
 const AllProducts = () => {
     const [products, setProducts] = useState([]);
@@ -76,14 +77,11 @@ const AllProducts = () => {
                             }}
                         >
                             {getChipColor(product.availability)}
-                            <Button
-                                variant="outlined"
-                                color="secondary"
-                                component={Link}
-                                to={`/phones/${product.customId}`}
-                            >
-                                View Details
-                            </Button>
+                            <Link to={`/phones/${product.customId}`}>
+                                <button className="view-button">
+                                    View Details
+                                </button>
+                            </Link>
                         </Box>
                     </CardContent>
                 </Card>
