@@ -1,108 +1,171 @@
-import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableHead, TableRow, TextField, Button } from '@mui/material';
-import './CSS/manager.css';
-
+import React, { useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TextField,
+  Button,
+} from "@mui/material";
+import "./CSS/manager.css";
 
 const Inventory = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
-    const [orders, setOrders] = useState([
-        { id: '#RB5625', date: '29 April 2024', product: 'product-1(1)', customerName: 'Anna M. Hines', email: 'anna.hines@mail.com', phone: '(+1)-555-1564-261', address: 'Burr Ridge/Illinois', paymentType: 'Credit Card', status: 'Completed', amount: 120 },
-        { id: '#RB9652', date: '25 April 2024', product: 'product-4', customerName: 'Judith H. Fritsche', email: 'judith.fritsche@mail.com', phone: '(+57)-305-5579-759', address: 'SULLIVAN/Kentucky', paymentType: 'Credit Card', status: 'Completed', amount: 70 },
-        { id: '#RB5984', date: '25 April 2024', product: 'product-5', customerName: 'Peter T. Smith', email: 'peter.smith@mail.com', phone: '(+33)-655-5187-93', address: 'Yreka/California', paymentType: 'Pay Pal', status: 'Completed', amount: 200 },
-        { id: '#RB3625', date: '21 April 2024', product: 'product-6', customerName: 'Emmanuel J. Delcid', email: 'emmanuel.delcid@mail.com', phone: '(+30)-693-5553-637', address: 'Atlanta/Georgia', paymentType: 'Pay Pal', status: 'Processing', amount: 150 },
-        { id: '#RB8652', date: '18 April 2024', product: 'product-1(2)', customerName: 'William J. Cook', email: 'william.cook@mail.com', phone: '(+91)-855-5446-150', address: 'Rosenberg/Texas', paymentType: 'Credit Card', status: 'Processing', amount: 100 }
-    ]);
+  const [phones, setPhones] = useState([
+    {
+      id: "P1234",
+      brand: "Apple",
+      model: "iPhone 13",
+      storage: "128GB",
+      color: "Black",
+      price: 799,
+      quantity: 10,
+    },
+    {
+      id: "P5678",
+      brand: "Samsung",
+      model: "Galaxy S21",
+      storage: "256GB",
+      color: "White",
+      price: 999,
+      quantity: 15,
+    },
+    {
+      id: "P9101",
+      brand: "OnePlus",
+      model: "9 Pro",
+      storage: "128GB",
+      color: "Green",
+      price: 899,
+      quantity: 8,
+    },
+    {
+      id: "P1121",
+      brand: "Google",
+      model: "Pixel 6",
+      storage: "128GB",
+      color: "Red",
+      price: 699,
+      quantity: 12,
+    },
+  ]);
 
-    const handleSearch = (event) => {
-        setSearchQuery(event.target.value);
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleEdit = (id) => {
+    console.log(`Edit phone with id: ${id}`);
+  };
+
+  const handleRemove = (id) => {
+    setPhones(phones.filter((phone) => phone.id !== id));
+  };
+
+  const handleAdd = () => {
+    const newPhone = {
+      id: "P9999",
+      brand: "Xiaomi",
+      model: "Mi 11",
+      storage: "256GB",
+      color: "Blue",
+      price: 649,
+      quantity: 20,
     };
+    setPhones([...phones, newPhone]);
+  };
 
-    const handleEdit = (id) => {
-        
-        console.log(`Edit order with id: ${id}`);
-    };
+  const filteredPhones = phones.filter(
+    (phone) =>
+      phone.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      phone.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      phone.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      phone.color.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-    const handleRemove = (id) => {
-       
-        setOrders(orders.filter(order => order.id !== id));
-    };
+  return (
+    <div
+      style={{
+        padding: "20px",
+        marginTop: "100px",
+        margin: "auto",
+        width: "80%",
+      }}
+    >
+      <br />
+      <br />
+      <center>
+        <h1>Phone Inventory</h1>
+      </center>
+      <br />
+      <br />
+      <input
+        type="text"
+        placeholder="Search"
+        variant="outlined"
+        fullWidth
+        value={searchQuery}
+        onChange={handleSearch}
+        style={{
+          marginBottom: "20px",
+          marginLeft: "230px",
+          marginRight: "230px",
+          width: "800px",
+          padding: "8px",
+        }}
+      />
 
-    const handleAdd = () => {
-       
-        const newOrder = { id: '#RB9999', date: '30 April 2024', product: 'product-7', customerName: 'New Customer', email: 'new.customer@mail.com', phone: '(+1)-555-0000-000', address: 'New Address', paymentType: 'Credit Card', status: 'Processing', amount: 150 };
-        setOrders([...orders, newOrder]);
-    };
+      <button variant="contained" onClick={handleAdd} className="manager-btn">
+        Add Phone
+      </button>
 
-    const filteredOrders = orders
-        .filter(order => order.status === 'Completed')
-        .filter((order) =>
-            order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            order.product.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            order.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            order.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            order.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            order.address.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-
-    return (
-        <div style={{ padding: '20px', marginTop: '100px', margin :'auto', width:'80%'}}>
-            <br/><br/>
-            <center><h1>Inventory</h1></center>
-            <br/><br/>
-            <input 
-                type="text"
-                placeholder="Search"
-                variant="outlined"
-                fullWidth
-                value={searchQuery}
-                onChange={handleSearch}
-                style={{ marginBottom: '20px', marginLeft: '230px', marginRight: '230px', width: '800px', padding: '8px' }}
-            />
-
-            <button variant="contained" onClick={handleAdd} className='manager-btn'>
-                Add Phone
-            </button>
-
-            <Table>
-                <TableHead style={{ backgroundColor: '#D3D3D3' }}>
-                    <TableRow>
-                        <TableCell>Order ID</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Product</TableCell>
-                        <TableCell>Customer Name</TableCell>
-                        <TableCell>Email ID</TableCell>
-                        <TableCell>Phone No.</TableCell>
-                        <TableCell>Address</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {filteredOrders.map((order) => (
-                        <TableRow key={order.id}>
-                            <TableCell>{order.id}</TableCell>
-                            <TableCell>{order.date}</TableCell>
-                            <TableCell>{order.product}</TableCell>
-                            <TableCell>{order.customerName}</TableCell>
-                            <TableCell>{order.email}</TableCell>
-                            <TableCell>{order.phone}</TableCell>
-                            <TableCell>{order.address}</TableCell>
-                            <TableCell>{order.status}</TableCell>
-                            <TableCell>
-                                <Button variant="outlined" color="primary" onClick={() => handleEdit(order.id)} style={{  }}>
-                                    Edit
-                                </Button>
-                                <Button variant="outlined" color="secondary" onClick={() => handleRemove(order.id)} style={{  }}>
-                                    Remove
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </div>
-    );
+      <Table>
+        <TableHead style={{ backgroundColor: "#D3D3D3" }}>
+          <TableRow>
+            <TableCell>Phone ID</TableCell>
+            <TableCell>Brand</TableCell>
+            <TableCell>Model</TableCell>
+            <TableCell>Storage</TableCell>
+            <TableCell>Color</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell>Quantity</TableCell>
+            <TableCell>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {filteredPhones.map((phone) => (
+            <TableRow key={phone.id}>
+              <TableCell>{phone.id}</TableCell>
+              <TableCell>{phone.brand}</TableCell>
+              <TableCell>{phone.model}</TableCell>
+              <TableCell>{phone.storage}</TableCell>
+              <TableCell>{phone.color}</TableCell>
+              <TableCell>{phone.price}</TableCell>
+              <TableCell>{phone.quantity}</TableCell>
+              <TableCell>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => handleEdit(phone.id)}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => handleRemove(phone.id)}
+                >
+                  Remove
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
 };
 
 export default Inventory;

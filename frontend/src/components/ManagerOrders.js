@@ -113,26 +113,11 @@ const Dashboard = () => {
     );
 
     return (
-        <div style={{ marginTop: '150px', width: '80%', margin: 'auto' }}>
-            <Grid container spacing={3} justifyContent="center" style={{ marginBottom: '20px'  , marginTop : "150px"}}>
-                <Grid item xs={12} sm={6} md={2} style = {{backgroundColor : "#001d3d" , color : "white"}}>
-                    <Card className='manager-card'>
-                        <CardContent>
-                            <Typography variant="h5" align="center">Revenue</Typography>
-                            <Typography variant="h6" align="center">${totalRevenue}</Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={2} style = {{backgroundColor : "#001d3d" , color : "white"}}>
-                    <Card className='manager-card'>
-                        <CardContent>
-                            <Typography variant="h5" align="center">Total Sales</Typography>
-                            <Typography variant="h6" align="center">{totalSales}</Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </Grid>
-            
+        <div style={{ width: '80%', marginLeft: '15%' }}>
+            <br/><br/><br/><br/>
+            <center>
+                <h1>Orders</h1>
+            </center>
             <TextField
                 type="text"
                 placeholder="Search"
@@ -144,7 +129,7 @@ const Dashboard = () => {
                 style={{ marginTop: '30px', width: '800px', padding: '8px' }}
             />
 
-            <Grid container spacing={3} style={{ marginTop: '20px' }}>
+            <Grid container spacing={3} style={{ marginTop: '5px' }}>
                 <Grid item xs={12} md={8}>
                     <Table>
                         <TableHead style={{ backgroundColor: '#001d3d'  }}>
