@@ -51,7 +51,7 @@ const ProfilePage = () => {
 
     return (
         <div className="customer-profile-page">
-            <h1>My Profile</h1>
+            <h1>ZellMart - Customer Profile</h1>
             <div className="profile-card">
                 {isEditing ? (
                     <>
@@ -73,6 +73,12 @@ const ProfilePage = () => {
                                 onChange={handleChange} 
                             />
                         </label>
+                        
+                        
+                        <button onClick={() => setShowPasswordFields(!showPasswordFields)}>
+                            {showPasswordFields ? "Cancel Password Change" : "Change Password"}
+                        </button>
+
                         
                         {showPasswordFields && (
                             <div className="password-section">
@@ -133,20 +139,19 @@ const ProfilePage = () => {
                                 onChange={handleChange} 
                             />
                         </label>
-
-                        <button onClick={() => setShowPasswordFields(!showPasswordFields)}>
-                            {showPasswordFields ? "Cancel Password Change" : "Change Password"}
-                        </button>
-                        <button onClick={showPasswordFields ? handlePasswordChange : handleEdit}>
-                            Save
-                        </button>
-                        <button onClick={handleEdit}>Cancel</button>
+                        <div className="button-container">
+                            <button onClick={showPasswordFields ? handlePasswordChange : handleEdit}>
+                                Save
+                            </button>
+                            <button onClick={handleEdit}>Cancel</button>
+                        </div>
                     </>
                 ) : (
                     <>
                         <p><strong>Name:</strong> {customer.name}</p>
                         <p><strong>Email:</strong> {customer.email}</p>
                         <p><strong>User name:</strong> {customer.username}</p>
+                        <p><strong>Password:</strong> {customer.password}</p>
                         <p><strong>Phone:</strong> {customer.phoneNumber}</p>
                         <p><strong>Delivery Address:</strong> {customer.deliveryAddress}</p>
                         <p><strong>NIC:</strong> {customer.nic}</p>

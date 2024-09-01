@@ -21,7 +21,32 @@
     max-width: 600px;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     border-top: 5px solid #2980b9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button-container button {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.password-section {
+    margin-top: 20px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
 
 .profile-card:hover {
     transform: translateY(-5px);
@@ -91,6 +116,7 @@
     background-color: #001d3d;
     transform: scale(1.05);
 }
+
 
 .customer-profile-page::before {
     content: "";

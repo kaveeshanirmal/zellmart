@@ -50,7 +50,7 @@ const ManagerProfilePage = () => {
 
     return (
         <div className="manager-profile-page">
-            <h1>My Profile</h1>
+            <h1>ZellMart - Manager Profile</h1>
             <div className="profile-card">
                 {isEditing ? (
                     <>
@@ -127,10 +127,12 @@ const ManagerProfilePage = () => {
                                 onChange={handleChange} 
                             />
                         </label>
-                        <button onClick={showPasswordFields ? handlePasswordChange : handleEdit}>
-                            Save
-                        </button>
-                        <button onClick={handleEdit}>Cancel</button>
+                        <div className="button-container">
+                            <button onClick={showPasswordFields ? handlePasswordChange : handleEdit}>
+                                Save
+                            </button>
+                            <button onClick={handleEdit}>Cancel</button>
+                        </div>
                     </>
                 ) : (
                     <>
