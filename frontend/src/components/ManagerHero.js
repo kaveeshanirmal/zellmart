@@ -104,17 +104,29 @@ const Dashboard = () => {
         { name: 'product 5', price: 100 }
     ];
 
+    
     const [topSelling, setTopSelling] = useState(Array(4).fill(''));
+    const [newArrivals, setNewArrivals] = useState(Array(4).fill(''));
 
-    const handleProductSelect = (index, event) => {
-        const newTopSelling = [...topSelling];
-        newTopSelling[index] = event.target.value;
-        setTopSelling(newTopSelling);
+
+    const handleProductSelect = (section, index, event) => {
+        if (section === 'bestSelling') {
+            const newBestSelling = [...topSelling];
+            newBestSelling[index] = event.target.value;
+            setTopSelling(newBestSelling);
+        } else if (section === 'newArrivals') {
+            const newNewArrivals = [...newArrivals];
+            newNewArrivals[index] = event.target.value;
+            setNewArrivals(newNewArrivals);
+        }
     };
+    
 
     const handleSubmit = () => {
-        console.log(topSelling);
+        console.log('Best Selling:', topSelling);
+        console.log('New Arrivals:', newArrivals);
     };
+    
 
     return (
         <div style={{ marginTop: '150px', width: '80%', margin: 'auto' }}>
@@ -140,50 +152,52 @@ const Dashboard = () => {
             <br /><br /><br />
             <center>
                 <Grid container justifyContent="center" spacing={20}>
-                    <Grid item xs={6} md={4}>
-                        <h2>Best selling </h2>
-                        <br />
-                        {topSelling.map((selectedProduct, index) => (
-                            <div key={index} style={{ marginBottom: '20px' }}>
-                                <Select
-                                    value={selectedProduct}
-                                    onChange={(e) => handleProductSelect(index, e)}
-                                    fullWidth
-                                >
-                                    {availableProducts.map((product) => (
-                                        <MenuItem key={product.name} value={product.name}>
-                                            {product.name} - ${product.price}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </div>
-                        ))}
-                        <Button variant="contained" onClick={handleSubmit} className='manager-btn'>
-                            Save Products
-                        </Button>
-                    </Grid>
-                    <Grid item xs={6} md={4}>
-                        <h2>New Arrivals </h2>
-                        <br />
-                        {topSelling.map((selectedProduct, index) => (
-                            <div key={index} style={{ marginBottom: '20px' }}>
-                                <Select
-                                    value={selectedProduct}
-                                    onChange={(e) => handleProductSelect(index, e)}
-                                    fullWidth
-                                >
-                                    {availableProducts.map((product) => (
-                                        <MenuItem key={product.name} value={product.name}>
-                                            {product.name} - ${product.price}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </div>
-                        ))}
-                        <Button variant="contained" onClick={handleSubmit} className='manager-btn'>
-                            Save Products
-                        </Button>
-                    </Grid>
+                <Grid item xs={6} md={4}>
+    <h2>Best Selling</h2>
+    <br />
+    {topSelling.map((selectedProduct, index) => (
+        <div key={index} style={{ marginBottom: '20px' }}>
+            <Select
+                value={selectedProduct}
+                onChange={(e) => handleProductSelect('bestSelling', index, e)}
+                fullWidth
+            >
+                {availableProducts.map((product) => (
+                    <MenuItem key={product.name} value={product.name}>
+                        {product.name} - ${product.price}
+                    </MenuItem>
+                ))}
+            </Select>
+        </div>
+    ))}
+    <Button variant="contained" onClick={handleSubmit} className='manager-btn'>
+        Save Products
+    </Button>
+</Grid>
+
+<Grid item xs={6} md={4}>
+    <h2>New Arrivals</h2>
+    <br />
+    {newArrivals.map((selectedProduct, index) => (
+        <div key={index} style={{ marginBottom: '20px' }}>
+            <Select
+                value={selectedProduct}
+                onChange={(e) => handleProductSelect('newArrivals', index, e)}
+                fullWidth
+            >
+                {availableProducts.map((product) => (
+                    <MenuItem key={product.name} value={product.name}>
+                        {product.name} - ${product.price}
+                    </MenuItem>
+                ))}
+            </Select>
+        </div>
+    ))}
+    <Button variant="contained" onClick={handleSubmit} className='manager-btn'>
+        Save Products
+    </Button>
+</Grid>
+
                 </Grid>
             </center>
 
