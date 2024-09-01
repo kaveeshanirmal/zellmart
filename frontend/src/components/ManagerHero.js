@@ -91,10 +91,11 @@ const Dashboard = () => {
         order.orderId.toString().includes(searchQuery.toLowerCase()) ||
         order.phoneModel.toLowerCase().includes(searchQuery.toLowerCase()) ||
         order.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        order.customerNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        order.customerNumber.toString().includes(searchQuery) ||  
         order.customerAddress.toLowerCase().includes(searchQuery.toLowerCase()) ||
         order.status.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    
 
     const availableProducts = [
         { name: 'product 1', price: 120 },
