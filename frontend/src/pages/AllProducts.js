@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardMedia,
-    Chip,
-    Typography,
-} from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../components/CSS/allProducts.css";
 
 const AllProducts = () => {
@@ -24,67 +15,38 @@ const AllProducts = () => {
 
     const handleImageError = (e) => {
         e.target.src =
-            "https://drive.google.com/thumbnail?id=176u7p4VrXMDFo6br0BVKFks-5RI_0NSO&sz=w1000"; // Placeholder image URL
+            "https://drive.google.com/thumbnail?id=176u7p4VrXMDFo6br0BVKFks-5RI_0NSO&sz=w1000";
     };
 
-    const getChipColor = (availability) => {
-        console.log(availability);
-        if (availability === true) {
-            return <Chip label="In stock" color="success" />;
-        } else {
-            return <Chip label="Sold Out" color="error" />;
-        }
+    const getChipClass = (availability) => {
+        return availability ? "chip in-stock" : "chip sold-out";
     };
 
     return (
-        <div
-            style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                backgroundColor: "#f5f5f5",
-                padding: "20px",
-            }}
-        >
+        <div className="products-container">
             {products.map((product) => (
-                <Card
-                    key={product.customId}
-                    sx={{ maxWidth: 345, margin: 2, borderRadius: 5 }}
-                >
-                    <CardMedia
-                        component="img"
-                        height="340"
-                        image={`https://drive.google.com/thumbnail?id=${product.imgURL}&sz=w1000`}
+                <div key={product.customId} className="product-card">
+                    <img
+                        src={`https://drive.google.com/thumbnail?id=${product.imgURL}&sz=w1000`}
                         alt={product.model}
                         onError={handleImageError}
                     />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {product.brand} {product.model}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {product.description}
-                        </Typography>
-                        <Typography variant="body1" color="text.primary">
-                            Price: Rs.{product.price}
-                        </Typography>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                mt: 3,
-                            }}
-                        >
-                            {getChipColor(product.availability)}
+                    <div className="product-info">
+                        <h3>{`${product.brand} ${product.model}`}</h3>
+                        <p className="price">Rs.{product.price}</p>
+                        <p className="description">{product.description}</p>
+                        <div className="card-footer">
+                            <span
+                                className={getChipClass(product.availability)}
+                            >
+                                {product.availability ? "In stock" : "Sold Out"}
+                            </span>
                             <Link to={`/phones/${product.customId}`}>
-                                <button className="view-button">
-                                    View Details
-                                </button>
+                                <button className="view-button">View</button>
                             </Link>
-                        </Box>
-                    </CardContent>
-                </Card>
+                        </div>
+                    </div>
+                </div>
             ))}
         </div>
     );
