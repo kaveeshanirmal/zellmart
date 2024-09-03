@@ -4,22 +4,61 @@ import "../components/CSS/productPage.css";
 import { useParams } from "react-router";
 import axios from "axios";
 
+
 const ProductPage = () => {
     const { id } = useParams();
     const [phoneDetails, setPhoneDetails] = useState(null);
+    const [likedReviews, setLikedReviews] = useState(new Set());
+    const [customerDetails, setCustomerDetails] = useState({});
+    const [reviews, setReviews] = useState([]);
+    const [activeTab, setActiveTab] = useState('Tab1');
 
     useEffect(() => {
         if (id) {
             axios
                 .get(`http://localhost:5000/api/phones/${id}`)
-                .then((response) => {
+                .then(async (response) => {
                     setPhoneDetails(response.data);
+                    console.log(phoneDetails)
+    
+                    // Fetch reviews for this phone
+                    try {
+                        const reviewsResponse = await axios.get(`http://localhost:5000/api/reviews/phone/${id}`);
+                        console.log(reviewsResponse)
+                        setReviews(reviewsResponse.data);
+                        console.log(reviews)
+                    } catch (error) {
+                        console.error("Error fetching reviews:", error);
+                    }
                 })
                 .catch((error) => {
                     console.error("Error fetching phone details:", error);
                 });
         }
     }, [id]);
+
+    useEffect(() => {
+        const fetchCustomerDetails = async () => {
+            const customerIds = reviews.map(review => review.userId);
+            try {
+                const customerRequests = customerIds.map(userId => 
+                    axios.get(`http://localhost:5000/api/customers/${userId}`)
+                );
+                const responses = await Promise.all(customerRequests);
+                const customerData = responses.reduce((acc, response) => {
+                    acc[response.data._id] = response.data;
+                    return acc;
+                }, {});
+                setCustomerDetails(customerData);
+            } catch (error) {
+                console.error("Error fetching customer details:", error);
+            }
+        };
+
+        if (reviews.length > 0) {
+            fetchCustomerDetails();
+        }
+    }, [reviews]);
 
     if (!phoneDetails) {
         return <div>Loading...</div>;
@@ -61,6 +100,31 @@ const ProductPage = () => {
         colors: phoneDetails.misc.colors,
     };
 
+    const handleTabClick = (tabName) => {
+        setActiveTab(tabName);
+    };
+    const handleLike = (id) => {
+        // If this review is already liked, return early
+        if (likedReviews.has(id)) {
+            return;
+        }
+    
+        const updatedReviews = reviews.map(review => {
+            if (review._id === id) { // Use _id from MongoDB
+                return { ...review, helpfulVotes: review.helpfulVotes + 1 };
+            }
+            return review;
+        });
+    
+        setReviews(updatedReviews);
+        setLikedReviews(new Set(likedReviews).add(id)); // Add this review to liked reviews
+    };
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        return date.toLocaleDateString(); // You can use toLocaleDateString() or customize formatting as needed
+    };
+
     return (
         <div>
             <div className="product-page">
@@ -86,8 +150,23 @@ const ProductPage = () => {
                 />
             </div>
             <div className="product-details-container">
-                <h1>Product details</h1>
+                
+            <div className="product-tabs-header">
+                <button
+                    className={`product-tab-button ${activeTab === 'Tab1' ? 'active' : ''}`}
+                    onClick={() => handleTabClick('Tab1')}
+                >
+                    Product Details
+                </button>
+                <button
+                    className={`product-tab-button ${activeTab === 'Tab2' ? 'active' : ''}`}
+                    onClick={() => handleTabClick('Tab2')}
+                >
+                    Reviews
+                </button>
+            </div>
                 <br />
+                {activeTab === 'Tab1' && <div>
                 <p>{product.description}</p>
                 <br />
                 <br />
@@ -195,7 +274,36 @@ const ProductPage = () => {
                         </tr>
                     </tbody>
                 </table>
+                </div>
+            }
+            {activeTab === 'Tab2' && <div>
+                <div className="review-list">
+                {reviews.map(review => (
+                    <div key={review.customId} className="review-item">
+                        <div className="review-header">
+                            <span className="reviewer">{customerDetails[review.userId]?.firstName} {customerDetails[review.userId]?.lastName}</span>
+                            <span className="review-date">{formatDate(review.createdAt)}</span>
+                        </div>
+                        <div className="review-rating">
+                            {'★'.repeat(review.rating)}
+                        </div>
+                        <p className="review-text">{review.comment}</p>
+                        <p className="review-color">Color: {review.color}</p>
+                        <div className="review-actions">
+                        <button className="like-button" onClick={() =>  handleLike(review._id)}>
+                        <i class="fa-solid fa-thumbs-up fa-lg"></i>
+                        </button>
+                        <span className="likes">{`${review.helpfulVotes}`} </span>
+                        </div>
+                    </div>
+                ))}    
+                </div>
+                
             </div>
+            }
+            </div>
+            <br/>
+            <br/>
         </div>
     );
 };

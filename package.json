@@ -481,6 +481,7 @@
         "minimist": "^1.2.8",
         "minipass": "^7.1.2",
         "mkdirp": "^0.5.6",
+        "mongoose": "^8.6.0",
         "ms": "^2.1.2",
         "multicast-dns": "^7.2.5",
         "mz": "^2.7.0",

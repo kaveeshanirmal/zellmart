@@ -12,7 +12,7 @@ export default function NavBar() {
 
     //variables to idetify the user
     const [isLoggedIn, setLoggedIn] = useState(true);
-    const [userType, setUserType] = useState("manager");
+    const [userType, setUserType] = useState("customer");
     //................................
 
     //code to fix the navbar on top
@@ -70,6 +70,7 @@ export default function NavBar() {
             <NavLink onClick={() => setLoggedIn(!isLoggedIn)} className={`navBarLink ${darkMode ? 'dark' : ''}` }>Log Out</NavLink>
             <NavLink to="/ContactUs" className={`navBarLink ${darkMode ? 'dark' : ''}` }>Contact</NavLink>    
             <NavLink to="/CustomerProfile" className={`navBarLink ${darkMode ? 'dark' : ''}` }>Profile</NavLink>
+            <NavLink to="/CustomerReviews" className={`navBarLink ${darkMode ? 'dark' : ''}` }>Reviews</NavLink>
             <NavLink to="/CustomerOrders" className={`navBarLink ${darkMode ? 'dark' : ''}` }>Orders</NavLink>
             <NavLink to="/Home" className={`navBarLink ${darkMode ? 'dark' : ''}` }>Home</NavLink>
             </div> }
