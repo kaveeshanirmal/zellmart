@@ -16,6 +16,7 @@ import ManagerOrders from "./components/ManagerOrders";
 import Inventory from "./components/ManagerInventory";
 import PhoneForm from "./components/ManagerAddNewPhones";
 import AllProducts from "./pages/AllProducts";
+import TrackOrder from "./components/trackorder";
 
 function App() {
     const [darkMode, setDarkMode] = useState(false);
@@ -77,9 +78,11 @@ function App() {
                         path="/ManagerInventory"
                         element={<Inventory />}
                     ></Route>
+                    <Route path="/trackorder/:orderId" element={<TrackOrder />} />
                     <Route path="/phones" element={<AllProducts />} />
                     <Route path="/phones/:id" element={<ProductPage />} />
                     <Route path="/add" element={<PhoneForm />} />
+                   
                 </Routes>
                 <Footer />
             </BrowserRouter>

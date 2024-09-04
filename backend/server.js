@@ -1,31 +1,40 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-require("dotenv").config();
+const router = require("express").Router();
+let Phone = require("../models/phoneModels");
 
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+// GET all phones
+//localhost300/api/phones/
+router.route("/").get((req, res) => {
+    Phone.find()
+        .then((phones) => res.json(phones))
+        .catch((err) => res.status(400).json("Error: " + err));
 });
 
-const connection = mongoose.connection;
-connection.once("open", () => {
-    console.log("MongoDB database connection established successfully");
+// GET phone by customId
+//localhost3000/api/phones/10
+router.route("/:id").get((req, res) => {
+    const { id } = req.params;
+
+    // Find phone by customId field
+    Phone.findOne({ customId: id })
+        .then((phone) => {
+            if (!phone) {
+                return res.status(404).json("Phone not found");
+            }
+            res.json(phone);
+        })
+        .catch((err) => res.status(500).json("Error: " + err));
 });
 
-// Routes
-const phoneRouter = require("./routes/phones");
-app.use("/api/phones", phoneRouter);
-
-const orderRouter = require("./routes/orders");
-app.use("/api/orders", orderRouter);
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// POST new phone
+//localhost3000/api/phones/
+router.post("/", async (req, res) => {
+    try {
+        const newPhone = new Phone(req.body);
+        await newPhone.save();
+        res.status(201).send({ message: "Phone added successfully" });
+    } catch (error) {
+        res.status(500).send({ message: "Error saving phone data", error });
+    }
 });
+
+module.exports = router;

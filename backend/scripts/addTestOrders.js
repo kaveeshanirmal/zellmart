@@ -27,7 +27,7 @@ const testOrders = [
         date: "2024-08-16",
         total: 999,
         quantity: 2,
-        status: "Shipped",
+        status: "Processing",
     },
     {
         orderId: 3,
@@ -40,7 +40,7 @@ const testOrders = [
         date: "2024-08-17",
         total: 849,
         quantity: 1,
-        status: "Delivered",
+        status: "Processing",
     },
     {
         orderId: 4,
@@ -53,7 +53,7 @@ const testOrders = [
         date: "2024-08-18",
         total: 649,
         quantity: 1,
-        status: "Cancelled",
+        status: "Processing",
     },
     {
         orderId: 5,
@@ -79,7 +79,7 @@ const testOrders = [
         date: "2024-08-20",
         total: 1598,
         quantity: 2,
-        status: "Shipped",
+        status: "Processing",
     },
     {
         orderId: 7,
@@ -92,7 +92,7 @@ const testOrders = [
         date: "2024-08-21",
         total: 999,
         quantity: 1,
-        status: "Delivered",
+        status: "Processing",
     },
     {
         orderId: 8,
@@ -118,7 +118,7 @@ const testOrders = [
         date: "2024-08-23",
         total: 649,
         quantity: 1,
-        status: "Shipped",
+        status: "Processing",
     },
     {
         orderId: 10,
@@ -131,7 +131,7 @@ const testOrders = [
         date: "2024-08-24",
         total: 999,
         quantity: 1,
-        status: "Delivered",
+        status: "Processing",
     },
 ];
 
