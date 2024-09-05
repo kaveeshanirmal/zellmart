@@ -14,17 +14,6 @@ const ReviewForm = () => {
         setReviewText(e.target.value);
     };
 
-    const handleImageUpload = (e) => {
-        const files = Array.from(e.target.files);
-        if (files.length > 6) {
-            setError("You can upload a maximum of 6 images.");
-            return;
-        }
-        const imageFiles = files.map((file) => URL.createObjectURL(file));
-        setUploadedImages(imageFiles);
-        setError("");
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         // Submit logic here
@@ -40,9 +29,9 @@ const ReviewForm = () => {
             <br/>
             <h3>Rate and review purchased product:</h3>
             <br/>
-            <div className="product-details">
-            <p className="product-name">I Phone X</p>
-            <p className="color">Color: Black</p>
+            <div className="product-details-review">
+            <p className="product-name-review">I Phone X</p>
+            <p className="review-form-color">Color: Black</p>
             </div>
             <br/>
             <div className="rating-selection">
@@ -62,7 +51,7 @@ const ReviewForm = () => {
             <br/>
             <p className="small-heading">Review detail</p>
             <textarea
-                className="review-text"
+                className="review-form-text"
                 placeholder="What do you think of this product?"
                 value={reviewText}
                 onChange={handleTextChange}

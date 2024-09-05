@@ -285,7 +285,7 @@ const ProductPage = () => {
                             <span className="review-date">{formatDate(review.createdAt)}</span>
                         </div>
                         <div className="review-rating">
-                            {'★'.repeat(review.rating)}
+                            {'★'.repeat(1)}
                         </div>
                         <p className="review-text">{review.comment}</p>
                         <p className="review-color">Color: {review.color}</p>
