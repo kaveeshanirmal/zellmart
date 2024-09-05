@@ -5,7 +5,7 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import './CSS/navBar.css'
 import logo from './CSS/Images/CLOUDRestaurantLogo.png'
 import SwitchButton from './SwitchButton';
-import { NavLink} from 'react-router-dom';
+import { Link, NavLink} from 'react-router-dom';
 
 
 export default function NavBar() {
@@ -45,8 +45,10 @@ export default function NavBar() {
     <div className={`navBarBox ${isFixed ? 'fixed' : ''} ${darkMode ? 'dark' : ''}` }  >
         <div className="navbarLeft">
             <div className='navBarLogo'>
+                <Link to={"/Home"}>
                 {/* <img src={logo} className='logoPic' /> */}
                 <h2 className={`navBarTitle ${isFixed ? 'fixed' : ''} ${darkMode ? 'dark' : ''}` }>ZellMart</h2>
+                </Link>
             </div> 
         </div>
         <div className='searchBox'>
