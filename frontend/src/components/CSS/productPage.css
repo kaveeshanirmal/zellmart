@@ -201,3 +201,113 @@
         margin-bottom: 10px;
     }
 }
+
+.product-tabs {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+  }
+  .product-tabs.dark{
+  color: white;
+  }
+  
+  .product-tab-buttons {
+    margin-bottom: 10px;
+  }
+  
+  .product-tab-button {
+    font-weight:600;
+    font-size: 20px;
+    padding: 20px 80px;
+    padding-left: 0;
+    cursor: pointer;
+    border: 1px;
+    color:#001d3d4e;
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+  }
+  .product-tab-button.dark{
+    color: white;
+    background-color: #171717;
+  }
+  
+  .product-tab-button.active {
+    color:#001D3D;
+  }
+
+  .product-tab-button.dark.active {
+    border-bottom: 3px solid white;
+    color: white;
+  }
+
+  .product-tab-content {
+    width: 100%;
+    padding-top: 10px;
+   
+  }
+  .review-list {
+   width:100%;
+}
+.review-item {
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.reviewer {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.verified-badge {
+    color: green;
+    margin-left: 10px;
+}
+
+.review-date {
+    font-size: 14px;
+    color: #888;
+}
+
+.review-rating {
+    font-size: 20px;
+    color: #f8d64e;
+    margin-bottom: 10px;
+}
+
+.review-text {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.review-color {
+    font-size: 14px;
+    color: #555;
+}
+
+.review-actions {
+    margin-top: 10px;
+}
+
+.like-button {
+    color: rgb(165, 164, 164);
+    border: none;
+    padding-right:10px; 
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.like-button:hover {
+    color: rgb(97, 91, 91);
+}
+
+.likes{
+    font-size: 14px;
+    color: rgb(165, 164, 164);
+}
