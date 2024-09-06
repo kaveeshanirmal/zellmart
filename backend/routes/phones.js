@@ -2,6 +2,7 @@ const router = require("express").Router();
 let Phone = require("../models/phoneModels");
 
 // GET all phones
+//localhost300/api/phones/
 router.route("/").get((req, res) => {
     Phone.find()
         .then((phones) => res.json(phones))
@@ -9,6 +10,7 @@ router.route("/").get((req, res) => {
 });
 
 // GET phone by customId
+//localhost3000/api/phones/10
 router.route("/:id").get((req, res) => {
     const { id } = req.params;
 
@@ -24,6 +26,7 @@ router.route("/:id").get((req, res) => {
 });
 
 // POST new phone
+//localhost3000/api/phones/
 router.post("/", async (req, res) => {
     try {
         const newPhone = new Phone(req.body);

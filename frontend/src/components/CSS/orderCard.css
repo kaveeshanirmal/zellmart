@@ -128,3 +128,25 @@
     padding-top: 10px;
    
   }
+
+  .review-bttn{
+    width:auto;
+    background-color:#ffffff;
+    color:#000000;
+    border: 2px solid #000000;
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background-color 0.3s ease;
+  }
+
+  .review-bttn:hover{
+    background-color: #000000;
+    color: #f5f5f5; 
+  }
+
+  a{
+    text-decoration: none;
+  }

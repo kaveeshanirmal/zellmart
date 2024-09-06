@@ -25,8 +25,14 @@ app.use("/api/phones", phoneRouter);
 const orderRouter = require("./routes/orders");
 app.use("/api/orders", orderRouter);
 
+const reviewRoutes = require("./routes/reviews");
+app.use('/api/reviews', reviewRoutes);
+
 const accessoryRouter = require("./routes/accessories");
 app.use("/api/accessories", accessoryRouter);
+
+const customerRoutes = require("./routes/customers");
+app.use('/api/customers', customerRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
