@@ -16,6 +16,10 @@ import ManagerOrders from "./components/ManagerOrders";
 import Inventory from "./components/ManagerInventory";
 import PhoneForm from "./components/ManagerAddNewPhones";
 import AllProducts from "./pages/AllProducts";
+import AllAccessories from "./pages/AllAccessories";
+import AccessoryPage from "./pages/AccessoryPage";
+
+
 
 function App() {
     const [darkMode, setDarkMode] = useState(false);
@@ -80,6 +84,10 @@ function App() {
                     <Route path="/phones" element={<AllProducts />} />
                     <Route path="/phones/:id" element={<ProductPage />} />
                     <Route path="/add" element={<PhoneForm />} />
+
+                    <Route path="/accessories" element={<AllAccessories />} />
+                    <Route path="/accessories/:id" element={<AccessoryPage />} />
+                    {/* <Route path="/add" element={<PhoneForm />} /> */}
                 </Routes>
                 <Footer />
             </BrowserRouter>

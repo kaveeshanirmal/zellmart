@@ -25,6 +25,9 @@ app.use("/api/phones", phoneRouter);
 const orderRouter = require("./routes/orders");
 app.use("/api/orders", orderRouter);
 
+const accessoryRouter = require("./routes/accessories");
+app.use("/api/accessories", accessoryRouter);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
