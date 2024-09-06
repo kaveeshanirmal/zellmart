@@ -7,7 +7,6 @@ import Footer from "./components/Footer";
 import { ThemeContext } from "./components/ThemeContextProvider";
 import ProductPage from "./pages/ProductPage";
 import CustOrdersPage from "./pages/CustOrdersPage";
-import CustReviewsPage from "./pages/CustReviewsPage";
 import LoginForm from "./pages/Login";
 import Register from "./pages/Register";
 import ProfilePage from "./pages/CustomerProfilePage";
@@ -17,7 +16,7 @@ import ManagerOrders from "./components/ManagerOrders";
 import Inventory from "./components/ManagerInventory";
 import PhoneForm from "./components/ManagerAddNewPhones";
 import AllProducts from "./pages/AllProducts";
-import ReviewForm from "./components/ReviewForm";
+import TrackOrder from "./components/trackorder";
 
 function App() {
     const [darkMode, setDarkMode] = useState(false);
@@ -64,14 +63,6 @@ function App() {
                         element={<ProfilePage />}
                     ></Route>
                     <Route
-                        path="/CustomerReviews"
-                        element= {<CustReviewsPage/>}
-                    ></Route>
-                    <Route
-                        path="/ReviewForm"
-                        element= {<ReviewForm/>}
-                    ></Route>
-                    <Route
                         path="/ManagerProfile"
                         element={<ManagerProfilePage />}
                     ></Route>
@@ -87,9 +78,11 @@ function App() {
                         path="/ManagerInventory"
                         element={<Inventory />}
                     ></Route>
+                    <Route path="/trackorder/:orderId" element={<TrackOrder />} />
                     <Route path="/phones" element={<AllProducts />} />
                     <Route path="/phones/:id" element={<ProductPage />} />
                     <Route path="/add" element={<PhoneForm />} />
+                   
                 </Routes>
                 <Footer />
             </BrowserRouter>

@@ -1,76 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { Card, CardContent, Typography, Grid, Table, TableBody, TableCell, TableHead, TableRow, Button, TextField, Select, MenuItem } from '@mui/material';
 import './CSS/manager.css';
 
 const Dashboard = () => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [orders, setOrders] = useState([
-        {
-            orderId: 1,
-            phoneId: 101,
-            phoneModel: 'product 1',
-            customerId: 1001,
-            customerName: 'Anna M. Hines',
-            customerNumber: (+1)-555-1564-261,
-            customerAddress: 'Burr Ridge/Illinois',
-            date: '29 April 2024',
-            total: 120,
-            quantity: 1,
-            status: 'Pending'
-        },
-        {
-            orderId: 2,
-            phoneId: 102,
-            phoneModel: 'product 2',
-            customerId: 1002,
-            customerName: 'Judith H. Fritsche',
-            customerNumber: (+57)-305-5579-759,
-            customerAddress: 'SULLIVAN/Kentucky',
-            date: '25 April 2024',
-            total: 70,
-            quantity: 1,
-            status: 'Pending'
-        },
-        {
-            orderId: 3,
-            phoneId: 103,
-            phoneModel: 'product 3',
-            customerId: 1003,
-            customerName: 'Peter T. Smith',
-            customerNumber: (+33)-655-5187-93,
-            customerAddress: 'Yreka/California',
-            date: '25 April 2024',
-            total: 200,
-            quantity: 1,
-            status: 'Pending'
-        },
-        {
-            orderId: 4,
-            phoneId: 104,
-            phoneModel: 'product 4',
-            customerId: 1004,
-            customerName: 'Emmanuel J. Delcid',
-            customerNumber: (+30)-693-5553-637,
-            customerAddress: 'Atlanta/Georgia',
-            date: '21 April 2024',
-            total: 150,
-            quantity: 1,
-            status: 'Pending'
-        },
-        {
-            orderId: 5,
-            phoneId: 105,
-            phoneModel: 'product 5',
-            customerId: 1005,
-            customerName: 'William J. Cook',
-            customerNumber: (+91)-855-5446-150,
-            customerAddress: 'Rosenberg/Texas',
-            date: '18 April 2024',
-            total: 100,
-            quantity: 1,
-            status: 'Pending'
-        }
-    ]);
+    const [orders, setOrders] = useState([]);
+       
+    useEffect(() => {
+        fetch("http://localhost:5000/api/orders")
+            .then((response) => response.json())
+            .then((data) => {
+                setOrders(data);
+            });
+    }, []);
+
 
     const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
     const totalSales = orders.length;
