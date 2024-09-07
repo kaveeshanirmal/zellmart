@@ -38,7 +38,7 @@ export default function HeroSection(props) {
                     <i>"We are always here to serve you."</i>
                 </p>
                 <Link
-                    to="/phones"
+                    to="/products"
                     smooth={true}
                     duration={500}
                     className="hero-button"

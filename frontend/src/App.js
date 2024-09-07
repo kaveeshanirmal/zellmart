@@ -16,10 +16,9 @@ import ManagerOrders from "./components/ManagerOrders";
 import Inventory from "./components/ManagerInventory";
 import PhoneForm from "./components/ManagerAddNewPhones";
 import AllProducts from "./pages/AllProducts";
+import AllPhones from "./pages/AllPhones";
 import AllAccessories from "./pages/AllAccessories";
 import AccessoryPage from "./pages/AccessoryPage";
-
-
 
 function App() {
     const [darkMode, setDarkMode] = useState(false);
@@ -81,13 +80,21 @@ function App() {
                         path="/ManagerInventory"
                         element={<Inventory />}
                     ></Route>
-                    <Route path="/phones" element={<AllProducts />} />
+
+                    <Route path="/products" element={<AllProducts />} />
+                    <Route path="/phones" element={<AllPhones />} />
                     <Route path="/phones/:id" element={<ProductPage />} />
-                    <Route path="/add" element={<PhoneForm />} />
+                    <Route path="/addPhone" element={<PhoneForm />} />
 
                     <Route path="/accessories" element={<AllAccessories />} />
-                    <Route path="/accessories/:id" element={<AccessoryPage />} />
-                    {/* <Route path="/add" element={<PhoneForm />} /> */}
+                    <Route
+                        path="/accessories/:id"
+                        element={<AccessoryPage />}
+                    />
+                    {/* <Route
+                        path="/addAccessories"
+                        element={<AccesororiesForm />}
+                    /> */}
                 </Routes>
                 <Footer />
             </BrowserRouter>

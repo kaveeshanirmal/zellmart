@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../components/CSS/allProducts.css";
 
-const AllProducts = () => {
+const AllPhones = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/accessories")
+        fetch("http://localhost:5000/api/phones")
             .then((response) => response.json())
             .then((data) => {
                 setProducts(data);
@@ -15,7 +15,7 @@ const AllProducts = () => {
 
     const handleImageError = (e) => {
         e.target.src =
-            "https://drive.google.com/thumbnail?id=176u7p4VrXMDFo6br0BVKFks-5RI_0NSO&sz=w1000"; // Placeholder image URL
+            "https://drive.google.com/thumbnail?id=176u7p4VrXMDFo6br0BVKFks-5RI_0NSO&sz=w1000";
     };
 
     const getChipClass = (availability) => {
@@ -46,7 +46,7 @@ const AllProducts = () => {
                                         ? "In stock"
                                         : "Sold Out"}
                                 </span>
-                                <Link to={`/accessories/${product.customId}`}>
+                                <Link to={`/phones/${product.customId}`}>
                                     <button className="view-button">
                                         View
                                     </button>
@@ -60,4 +60,4 @@ const AllProducts = () => {
     );
 };
 
-export default AllProducts;
+export default AllPhones;
