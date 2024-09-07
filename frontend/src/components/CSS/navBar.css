@@ -1,0 +1,154 @@
+.navBarBox{
+    position: sticky;
+    top: 0;
+    display: flex; 
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #000000;
+}
+.navBarBox.dark{
+    color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    background-color: #000000;
+}
+
+.navBarBox.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+  }
+
+.navBarLeft{
+    flex:4;
+    display: flex;
+    margin: 0 ;
+    align-items: center;
+    overflow: hidden;
+    justify-content: space-between;
+}
+
+.searchBox{
+    align-items: center;
+    flex: 5;
+    display: flex;
+}
+
+.search-form{
+    width: 100%;
+    margin-left: 30%;
+    display: flex;
+}
+
+.search-btn{
+    margin-left: 10px;
+    font-size: 12px;
+    width:auto;
+    background-color:#f5f5f5;
+    color:#000000;
+    border: 2px solid #000000;
+    font-weight: bold;
+    padding: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.search-btn:hover{
+    color: #f5f5f5;
+    background-color: #000000;
+    border: 2px solid #f5f5f5;
+}
+
+.navBarLogo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+    color:#f5f5f5;
+}
+.navBarTitle{
+    color: #000000;
+    font-size: 20px;
+    font-family: sans-serif;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    margin-left: 10px;
+}
+
+.navBarTitle.dark{
+    color: #f5f5f5
+}
+
+.logoPic{
+    display: flex;
+    float: left;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.navBarLinks{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-decoration: none;
+    list-style: none;
+}
+
+.navBarLink{
+    float: right;
+    padding-left:15px;
+    padding-right: 10px;
+    font-size: 13px;
+    color: #000000;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    /* border-right:2px solid #bbb; */
+    line-height: 2cm;
+}
+
+.navBarLink.dark{
+    color: #f5f5f5;
+}
+
+.navBarLink:hover{
+    text-decoration: underline;
+}
+.navBarLink.dark:hover{
+    text-decoration: underline;
+}
+.navBarCenter{
+    flex: 3;
+    display: block;
+    float: right;
+    justify-content: flex-end;
+}
+
+.navBarRight{
+    flex: 0.8;
+    display: flex;
+    align-items: center;
+    float: right;
+    justify-content: flex-end;
+}
+
+.navBarToggleButton{
+    color:#000000;
+    display: flex;
+    align-items: center;
+}
+
+.navBarToggleButton.dark{
+    color:#f5f5f5;
+}
