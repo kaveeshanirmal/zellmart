@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Accesory = require("./accessorySchema"); // Adjust the path as needed
+const Accesory = require("../models/accessoriesModels");
 const mongoURI = "mongodb://localhost:27017/zellmart";
 
 const testAccessory = [
@@ -257,14 +257,13 @@ const testAccessory = [
         isBestSeller: false,
         isNewArrived: true,
     },
-
 ];
 
 mongoose
     .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("Connected to MongoDB");
-        return Phone.insertMany(testAccessory);
+        return Accesory.insertMany(testAccessory);
     })
     .then(() => {
         console.log("Data successfully inserted");
