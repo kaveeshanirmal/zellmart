@@ -96,7 +96,7 @@ function ConfirmationPage() {
             .post("http://localhost:5000/api/orders", orderData)
             .then((response) => {
                 console.log("Order confirmed:", response.data);
-                navigate("/order-success");
+                navigate("/orderSuccess");
             })
             .catch((error) => {
                 console.error("Error confirming order:", error);

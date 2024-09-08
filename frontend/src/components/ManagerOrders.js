@@ -23,12 +23,10 @@ const Dashboard = () => {
         fetch("http://localhost:5000/api/orders")
             .then((response) => response.json())
             .then((data) => {
-                // Filter orders with status 'pending'
-                const pendingOrders = data.filter(
-                    (order) => order.status !== "Pending"
-                );
-                setOrders(pendingOrders); // Store only the pending orders in state
-            });
+                console.log("Fetched orders:", data); // Log the fetched data
+                setOrders(data); // Store all orders in state
+            })
+            .catch((error) => console.error("Error fetching orders:", error));
     }, []);
 
     const handleSearch = (event) => {
@@ -53,7 +51,20 @@ const Dashboard = () => {
                     : order
             )
         );
+
+        // Here you would typically also send an update to your backend
+        fetch(`http://localhost:5000/api/orders/${orderId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ status: newStatus }),
+        })
+            .then((response) => response.json())
+            .then((data) => console.log("Order updated:", data))
+            .catch((error) => console.error("Error updating order:", error));
     };
+
     const handleTrackOrder = (orderId) => {
         navigate(`/trackorder/${orderId}`);
     };
@@ -63,7 +74,6 @@ const Dashboard = () => {
             method: "DELETE",
         })
             .then(() => {
-                // Update the orders state to remove the deleted order
                 setOrders((prevOrders) =>
                     prevOrders.filter((order) => order.orderId !== orderId)
                 );
@@ -74,18 +84,26 @@ const Dashboard = () => {
     const filteredOrders = orders.filter(
         (order) =>
             order.orderId.toString().includes(searchQuery.toLowerCase()) ||
-            order.phoneModel
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase()) ||
-            order.customerName
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase()) ||
-            order.customerNumber
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase()) ||
-            order.customerAddress
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase()) ||
+            (order.phone &&
+                order.phone.model &&
+                order.phone.model
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase())) ||
+            (order.customer &&
+                order.customer.name &&
+                order.customer.name
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase())) ||
+            (order.customer &&
+                order.customer.phoneNumber &&
+                order.customer.phoneNumber
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase())) ||
+            (order.customer &&
+                order.customer.address &&
+                order.customer.address
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase())) ||
             order.status.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -127,25 +145,19 @@ const Dashboard = () => {
                                     Order ID
                                 </TableCell>
                                 <TableCell style={{ color: "white" }}>
-                                    Phone ID
+                                    Phone Model
                                 </TableCell>
                                 <TableCell style={{ color: "white" }}>
-                                    Customer ID
+                                    Customer Name
                                 </TableCell>
                                 <TableCell style={{ color: "white" }}>
                                     Date
-                                </TableCell>
-                                <TableCell style={{ color: "white" }}>
-                                    Product Model
                                 </TableCell>
                                 <TableCell style={{ color: "white" }}>
                                     Price
                                 </TableCell>
                                 <TableCell style={{ color: "white" }}>
                                     Quantity
-                                </TableCell>
-                                <TableCell style={{ color: "white" }}>
-                                    Customer Name
                                 </TableCell>
                                 <TableCell style={{ color: "white" }}>
                                     Phone No.
@@ -169,18 +181,32 @@ const Dashboard = () => {
                             {filteredOrders.map((order) => (
                                 <TableRow key={order.orderId}>
                                     <TableCell>{order.orderId}</TableCell>
-                                    <TableCell>{order.phoneId}</TableCell>
-                                    <TableCell>{order.customerId}</TableCell>
-                                    <TableCell>{order.orderDate}</TableCell>
-                                    <TableCell>{order.phoneModel}</TableCell>
-                                    <TableCell>{order.total}</TableCell>
-                                    <TableCell>{order.quantity}</TableCell>
-                                    <TableCell>{order.customerName}</TableCell>
                                     <TableCell>
-                                        {order.customerNumber}
+                                        {order.phone
+                                            ? order.phone.model
+                                            : "N/A"}
                                     </TableCell>
                                     <TableCell>
-                                        {order.customerAddress}
+                                        {order.customer
+                                            ? order.customer.name
+                                            : "N/A"}
+                                    </TableCell>
+                                    <TableCell>
+                                        {new Date(
+                                            order.orderDate
+                                        ).toLocaleDateString()}
+                                    </TableCell>
+                                    <TableCell>{order.total}</TableCell>
+                                    <TableCell>{order.quantity}</TableCell>
+                                    <TableCell>
+                                        {order.customer
+                                            ? order.customer.phoneNumber
+                                            : "N/A"}
+                                    </TableCell>
+                                    <TableCell>
+                                        {order.customer
+                                            ? order.customer.address
+                                            : "N/A"}
                                     </TableCell>
                                     <TableCell>
                                         {order.isEditing ? (
@@ -193,14 +219,17 @@ const Dashboard = () => {
                                                     )
                                                 }
                                             >
-                                                <MenuItem value="Processing">
-                                                    Processing
+                                                <MenuItem value="Pending">
+                                                    Pending
                                                 </MenuItem>
-                                                <MenuItem value="Out for Delivery">
-                                                    Out for Delivery
+                                                <MenuItem value="Accepted">
+                                                    Accepted
                                                 </MenuItem>
-                                                <MenuItem value="Completed">
-                                                    Completed
+                                                <MenuItem value="Delivered">
+                                                    Delivered
+                                                </MenuItem>
+                                                <MenuItem value="Reviewed">
+                                                    Reviewed
                                                 </MenuItem>
                                             </Select>
                                         ) : (
@@ -208,25 +237,19 @@ const Dashboard = () => {
                                         )}
                                     </TableCell>
                                     <TableCell align="center">
-                                        {order.status !== "Completed" && (
-                                            <Button
-                                                variant="outlined"
-                                                color="primary"
-                                                style={{
-                                                    backgroundColor: "#001d3d",
-                                                    color: "white",
-                                                }}
-                                                onClick={() =>
-                                                    handleEditClick(
-                                                        order.orderId
-                                                    )
-                                                }
-                                            >
-                                                {order.isEditing
-                                                    ? "Save"
-                                                    : "Edit"}
-                                            </Button>
-                                        )}
+                                        <Button
+                                            variant="outlined"
+                                            color="primary"
+                                            style={{
+                                                backgroundColor: "#001d3d",
+                                                color: "white",
+                                            }}
+                                            onClick={() =>
+                                                handleEditClick(order.orderId)
+                                            }
+                                        >
+                                            {order.isEditing ? "Save" : "Edit"}
+                                        </Button>
                                     </TableCell>
                                     <TableCell align="center">
                                         <Button

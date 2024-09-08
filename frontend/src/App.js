@@ -29,7 +29,8 @@ import SearchResults from "./components/SearchResults.js";
 import AboutUs from "./components/AboutUs.js";
 import ConfirmationPage from "./pages/ConfirmationPage.js";
 import TrackOrder from "./components/trackorder.js";
-import ScrollToTop from "./components/ScrollToTop"; 
+import ScrollToTop from "./components/ScrollToTop";
+import OrderSuccess from "./components/orderSucess.js";
 
 function App() {
     const token = localStorage.getItem("token");
@@ -77,7 +78,6 @@ function App() {
                 />
                 <ScrollToTop />
                 <Routes>
-                
                     <Route path="/" element={<Home />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/ContactUs" element={<ContactUs />} />
@@ -110,6 +110,7 @@ function App() {
                         path="/confirmation/accessories/:phoneId"
                         element={<ConfirmationPage />}
                     />
+                    <Route path="/orderSuccess" element={<OrderSuccess />} />
 
                     {/* Conditionally render customer or manager routes */}
                     {role === "customer" && (

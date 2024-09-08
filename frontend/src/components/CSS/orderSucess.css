@@ -1,0 +1,44 @@
+.order-success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f4f8;
+    padding: 20px;
+}
+
+.order-success-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 500px;
+    text-align: center;
+}
+
+.order-success-title {
+    color: #001d3d;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.order-success-message {
+    color: #4a4a4a;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.order-success-button {
+    background-color: #001d3d;
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.order-success-button:hover {
+    background-color: #00509e;
+}

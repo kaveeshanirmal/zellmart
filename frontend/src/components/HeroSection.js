@@ -1,5 +1,5 @@
 import "./CSS/heroSection.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import img1 from "./CSS/Images/bg1.jpeg";
 import img2 from "./CSS/Images/bg2.jpg";
 import img3 from "./CSS/Images/bg3.jpg";
@@ -10,17 +10,40 @@ const images = [img1, img2, img3];
 
 export default function HeroSection(props) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [opacity, setOpacity] = useState(1);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setOpacity(0);
+            setTimeout(() => {
+                setCurrentImageIndex((prevIndex) =>
+                    prevIndex === images.length - 1 ? 0 : prevIndex + 1
+                );
+                setOpacity(1);
+            }, 800);
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const nextSlide = () => {
-        setCurrentImageIndex((prevIndex) =>
-            prevIndex === images.length - 1 ? 0 : prevIndex + 1
-        );
+        setOpacity(0);
+        setTimeout(() => {
+            setCurrentImageIndex((prevIndex) =>
+                prevIndex === images.length - 1 ? 0 : prevIndex + 1
+            );
+            setOpacity(1);
+        }, 1000);
     };
 
     const prevSlide = () => {
-        setCurrentImageIndex((prevIndex) =>
-            prevIndex === 0 ? images.length - 1 : prevIndex - 1
-        );
+        setOpacity(0);
+        setTimeout(() => {
+            setCurrentImageIndex((prevIndex) =>
+                prevIndex === 0 ? images.length - 1 : prevIndex - 1
+            );
+            setOpacity(1);
+        }, 1000);
     };
 
     return (
@@ -30,11 +53,11 @@ export default function HeroSection(props) {
                 src={images[currentImageIndex]}
                 alt="Hero"
                 className="hero-image"
+                style={{ opacity: opacity }}
             />
             <div className="hero-content">
                 <WelcomeMessage />
                 <p>
-                    {" "}
                     <i>"We are always here to serve you."</i>
                 </p>
                 <Link
