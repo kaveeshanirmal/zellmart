@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../components/CSS/allProducts.css";
+import { co } from "co";
 
 const AllProducts = () => {
     const [phones, setPhones] = useState([]);
@@ -31,7 +32,7 @@ const AllProducts = () => {
         return availability ? "chip in-stock" : "chip sold-out";
     };
 
-    const renderProductCards = (products, limit = 9) => {
+    const renderProductCards = (products, type, limit = 9) => {
         return products.slice(0, limit).map((product) => (
             <div key={product.customId} className="product-card">
                 <img
@@ -47,7 +48,13 @@ const AllProducts = () => {
                         <span className={getChipClass(product.availability)}>
                             {product.availability ? "In stock" : "Sold Out"}
                         </span>
-                        <Link to={`/accessories/${product.customId}`}>
+                        <Link
+                            to={
+                                type === "Phones"
+                                    ? `/phones/${product.customId}`
+                                    : `/accessories/${product.customId}`
+                            }
+                        >
                             <button className="view-button">View</button>
                         </Link>
                     </div>
@@ -84,7 +91,7 @@ const AllProducts = () => {
             <section className="product-section">
                 <h1 className="section-title">Featured Phones</h1>
                 <div className="products-container">
-                    {renderProductCards(phones)}
+                    {renderProductCards(phones, "Phones")}
                     {renderViewMoreCard(phones, "Phones")}
                 </div>
             </section>
@@ -92,7 +99,7 @@ const AllProducts = () => {
             <section className="product-section">
                 <h1 className="section-title">Top Accessories</h1>
                 <div className="products-container">
-                    {renderProductCards(accessories)}
+                    {renderProductCards(accessories, "Accessories")}
                     {renderViewMoreCard(accessories, "Accessories")}
                 </div>
             </section>

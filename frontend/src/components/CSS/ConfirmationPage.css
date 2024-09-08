@@ -1,0 +1,140 @@
+/* ConfirmationPage.css */
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+  }
+  
+  .confirmation-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .back-button,
+  .confirm-button {
+    background-color: #001d3d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  }
+  
+  .back-button:hover,
+  .confirm-button:hover {
+    background-color: white;
+    color: #001d3d;
+    border: 2px solid #001d3d;
+  }
+  
+  .main-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .order-details {
+    flex: 2;
+    margin-right: 20px;
+    min-width: 300px;
+  }
+  
+  .order-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .order-details th, 
+  .order-details td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .order-details th {
+    background-color: #001d3d;
+    color: white;
+  }
+  
+  .product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .order-summary {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: 20px;
+  }
+  
+  
+  .subtotal {
+    background-color: #f2f2f2; /* Ash color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    
+    width: 100%;
+    text-align: left;
+  }
+  
+  .customer-info {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  .customer-info form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .customer-info label {
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .customer-info input,
+  .customer-info textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .customer-info textarea {
+    height: 100px;
+    resize: vertical;
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      flex-direction: column;
+    }
+  
+    .order-details,
+    .customer-info {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+  

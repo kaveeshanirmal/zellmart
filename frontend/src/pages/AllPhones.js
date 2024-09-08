@@ -23,31 +23,39 @@ const AllProducts = () => {
     };
 
     return (
-        <div className="products-container">
-            {products.map((product) => (
-                <div key={product.customId} className="product-card">
-                    <img
-                        src={`https://drive.google.com/thumbnail?id=${product.imgURL}&sz=w1000`}
-                        alt={product.model}
-                        onError={handleImageError}
-                    />
-                    <div className="product-info">
-                        <h3>{`${product.brand} ${product.model}`}</h3>
-                        <p className="price">Rs.{product.price}</p>
-                        <p className="description">{product.description}</p>
-                        <div className="card-footer">
-                            <span
-                                className={getChipClass(product.availability)}
-                            >
-                                {product.availability ? "In stock" : "Sold Out"}
-                            </span>
-                            <Link to={`/phones/${product.customId}`}>
-                                <button className="view-button">View</button>
-                            </Link>
+        <div className="all-products-container">
+            <div className="products-container">
+                {products.map((product) => (
+                    <div key={product.customId} className="product-card">
+                        <img
+                            src={`https://drive.google.com/thumbnail?id=${product.imgURL}&sz=w1000`}
+                            alt={product.model}
+                            onError={handleImageError}
+                        />
+                        <div className="product-info">
+                            <h3>{`${product.brand} ${product.model}`}</h3>
+                            <p className="price">Rs.{product.price}</p>
+                            <p className="description">{product.description}</p>
+                            <div className="card-footer">
+                                <span
+                                    className={getChipClass(
+                                        product.availability
+                                    )}
+                                >
+                                    {product.availability
+                                        ? "In stock"
+                                        : "Sold Out"}
+                                </span>
+                                <Link to={`/phones/${product.customId}`}>
+                                    <button className="view-button">
+                                        View
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };

@@ -34,4 +34,57 @@ router.post("/", async (req, res) => {
     }
 });
 
+// PUT (update) accessory
+// localhost:5000/api/phones/:id
+router.put("/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const updatedAccessory = await Accessory.findOneAndUpdate(
+            { customId: id }, // Query by customId
+            req.body,
+            { new: true }
+        );
+
+        if (!updatedAccessory) {
+            return res.status(404).json({ message: "Accessory not found" });
+        }
+
+        res.json(updatedAccessory);
+    } catch (error) {
+        res.status(500).json({
+            message: "Error updating accessory data",
+            error: error.message,
+        });
+    }
+});
+
+// DELETE accessory
+// localhost:5000/api/phones/:id
+router.delete("/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log("Received Delete Request");
+
+        // delete the document by customId
+        const deletedAccessory = await Accessory.findOneAndDelete({
+            customId: id,
+        });
+
+        if (!deletedAccessory) {
+            return res.status(404).json({ message: "Accessory not found" });
+        }
+
+        res.json({
+            message: "Accessory successfully deleted",
+            phone: deletedAccessory,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Error deleting accessory data",
+            error: error.message,
+        });
+    }
+});
+
 module.exports = router;

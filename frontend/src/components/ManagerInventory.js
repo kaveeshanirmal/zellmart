@@ -1,171 +1,231 @@
-import React, { useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TextField,
-  Button,
-} from "@mui/material";
-import "./CSS/manager.css";
+import React, { useEffect, useState } from "react";
+import { Tabs, Tab, Box } from "@mui/material";
+import "./CSS/managerInventory.css";
+import { useNavigate } from "react-router-dom";
 
-const Inventory = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+const InventoryManager = () => {
+    const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeTab, setActiveTab] = useState(0);
 
-  const [phones, setPhones] = useState([
-    {
-      id: "P1234",
-      brand: "Apple",
-      model: "iPhone 13",
-      storage: "128GB",
-      color: "Black",
-      price: 799,
-      quantity: 10,
-    },
-    {
-      id: "P5678",
-      brand: "Samsung",
-      model: "Galaxy S21",
-      storage: "256GB",
-      color: "White",
-      price: 999,
-      quantity: 15,
-    },
-    {
-      id: "P9101",
-      brand: "OnePlus",
-      model: "9 Pro",
-      storage: "128GB",
-      color: "Green",
-      price: 899,
-      quantity: 8,
-    },
-    {
-      id: "P1121",
-      brand: "Google",
-      model: "Pixel 6",
-      storage: "128GB",
-      color: "Red",
-      price: 699,
-      quantity: 12,
-    },
-  ]);
+    const [phones, setPhones] = useState([]);
+    const [accessories, setAccessories] = useState([]);
 
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
+    useEffect(() => {
+        fetchPhones();
+        fetchAccessories();
+    }, []);
 
-  const handleEdit = (id) => {
-    console.log(`Edit phone with id: ${id}`);
-  };
-
-  const handleRemove = (id) => {
-    setPhones(phones.filter((phone) => phone.id !== id));
-  };
-
-  const handleAdd = () => {
-    const newPhone = {
-      id: "P9999",
-      brand: "Xiaomi",
-      model: "Mi 11",
-      storage: "256GB",
-      color: "Blue",
-      price: 649,
-      quantity: 20,
+    const fetchPhones = () => {
+        fetch("http://localhost:5000/api/phones")
+            .then((response) => response.json())
+            .then((data) => {
+                setPhones(data);
+            });
     };
-    setPhones([...phones, newPhone]);
-  };
 
-  const filteredPhones = phones.filter(
-    (phone) =>
-      phone.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      phone.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      phone.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      phone.color.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    const fetchAccessories = () => {
+        fetch("http://localhost:5000/api/accessories")
+            .then((response) => response.json())
+            .then((data) => {
+                setAccessories(data);
+            });
+    };
 
-  return (
-    <div
-      style={{
-        padding: "20px",
-        marginTop: "100px",
-        margin: "auto",
-        width: "80%",
-      }}
-    >
-      <br />
-      <br />
-      <center>
-        <h1>Phone Inventory</h1>
-      </center>
-      <br />
-      <br />
-      <input
-        type="text"
-        placeholder="Search"
-        variant="outlined"
-        fullWidth
-        value={searchQuery}
-        onChange={handleSearch}
-        style={{
-          marginBottom: "20px",
-          marginLeft: "230px",
-          marginRight: "230px",
-          width: "800px",
-          padding: "8px",
-        }}
-      />
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
 
-      <button variant="contained" onClick={handleAdd} className="manager-btn">
-        Add Phone
-      </button>
+    const handleTabChange = (event, newValue) => {
+        setActiveTab(newValue);
+    };
 
-      <Table>
-        <TableHead style={{ backgroundColor: "#D3D3D3" }}>
-          <TableRow>
-            <TableCell>Phone ID</TableCell>
-            <TableCell>Brand</TableCell>
-            <TableCell>Model</TableCell>
-            <TableCell>Storage</TableCell>
-            <TableCell>Color</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Quantity</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {filteredPhones.map((phone) => (
-            <TableRow key={phone.id}>
-              <TableCell>{phone.id}</TableCell>
-              <TableCell>{phone.brand}</TableCell>
-              <TableCell>{phone.model}</TableCell>
-              <TableCell>{phone.storage}</TableCell>
-              <TableCell>{phone.color}</TableCell>
-              <TableCell>{phone.price}</TableCell>
-              <TableCell>{phone.quantity}</TableCell>
-              <TableCell>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => handleEdit(phone.id)}
-                >
-                  Edit
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={() => handleRemove(phone.id)}
-                >
-                  Remove
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
-  );
+    const handleEdit = (id) => {
+        if (activeTab === 0) navigate(`/editPhone/${id}`);
+        else navigate(`/editAccessory/${id}`);
+    };
+
+    const handleRemove = async (id) => {
+        //deleting phone
+        if (activeTab === 0) {
+            try {
+                const response = await fetch(
+                    `http://localhost:5000/api/phones/${id}`,
+                    {
+                        method: "DELETE",
+                    }
+                );
+                if (response.ok) {
+                    alert("Phone removed successfully");
+                    fetchPhones();
+                } else {
+                    const errorData = await response.json();
+                    console.error(
+                        "Failed to delete phone:",
+                        response.status,
+                        errorData
+                    );
+                }
+            } catch (error) {
+                console.error("Error deleting phone:", error);
+            }
+        } else {
+            //deleting accessory
+            try {
+                const response = await fetch(
+                    `http://localhost:5000/api/accessories/${id}`,
+                    {
+                        method: "DELETE",
+                    }
+                );
+                if (response.ok) {
+                    alert("Acccessory removed successfully");
+                    fetchPhones();
+                } else {
+                    const errorData = await response.json();
+                    console.error(
+                        "Failed to delete accessory:",
+                        response.status,
+                        errorData
+                    );
+                }
+            } catch (error) {
+                console.error("Error deleting accessory:", error);
+            }
+        }
+    };
+
+    const handleClick = () => {
+        if (activeTab === 0) {
+            navigate("/addPhone");
+        } else {
+            navigate("/addAccessory");
+        }
+    };
+
+    const filteredItems =
+        activeTab === 0
+            ? phones.filter((phone) =>
+                  Object.values(phone).some((value) =>
+                      value
+                          .toString()
+                          .toLowerCase()
+                          .includes(searchQuery.toLowerCase())
+                  )
+              )
+            : accessories.filter((accessory) =>
+                  Object.values(accessory).some((value) =>
+                      value
+                          .toString()
+                          .toLowerCase()
+                          .includes(searchQuery.toLowerCase())
+                  )
+              );
+    return (
+        <Box className="inventory-container">
+            <Tabs
+                value={activeTab}
+                onChange={handleTabChange}
+                centered
+                className="inventory-tabs"
+            >
+                <Tab label="Phones" className="inventory-tab" />
+                <Tab label="Accessories" className="inventory-tab" />
+            </Tabs>
+
+            <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearch}
+                className="search-field"
+            />
+
+            <button className="button add-button" onClick={handleClick}>
+                Add {activeTab === 0 ? "Phone" : "Accessory"}
+            </button>
+
+            <table className="inventory-table">
+                <thead className="inventory-table-head">
+                    <tr>
+                        {activeTab === 0 ? (
+                            <>
+                                <th className="inventory-table-cell">
+                                    Phone ID
+                                </th>
+                                <th className="inventory-table-cell">Brand</th>
+                                <th className="inventory-table-cell">Model</th>
+                                <th className="inventory-table-cell">
+                                    Storage
+                                </th>
+                                <th className="inventory-table-cell">Color</th>
+                                <th className="inventory-table-cell">Price</th>
+                                <th className="inventory-table-cell">
+                                    Quantity
+                                </th>
+                            </>
+                        ) : (
+                            <>
+                                <th className="inventory-table-cell">
+                                    Accessory ID
+                                </th>
+                                <th className="inventory-table-cell">Brand</th>
+                                <th className="inventory-table-cell">Name</th>
+                                <th className="inventory-table-cell">
+                                    Category
+                                </th>
+                                <th className="inventory-table-cell">Price</th>
+                                <th className="inventory-table-cell">
+                                    Quantity
+                                </th>
+                            </>
+                        )}
+                        <th className="inventory-table-cell">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredItems.map((item) => (
+                        <tr key={item.id} className="inventory-table-row">
+                            {activeTab === 0 ? (
+                                <>
+                                    <td>{item.customId}</td>
+                                    <td>{item.brand}</td>
+                                    <td>{item.model}</td>
+                                    <td>{item.memory.internal}</td>
+                                    <td>{item.misc.colors}</td>
+                                    <td>${item.price}</td>
+                                    <td>{item.quantity}</td>
+                                </>
+                            ) : (
+                                <>
+                                    <td>{item.customId}</td>
+                                    <td>{item.brand}</td>
+                                    <td>{item.model}</td>
+                                    <td>Headphones</td>
+                                    <td>${item.price}</td>
+                                    <td>{item.quantity}</td>
+                                </>
+                            )}
+                            <td>
+                                <button
+                                    onClick={() => handleEdit(item.customId)}
+                                    className="button-table edit-button"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    onClick={() => handleRemove(item.customId)}
+                                    className="button-table remove-button"
+                                >
+                                    Remove
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </Box>
+    );
 };
 
-export default Inventory;
+export default InventoryManager;

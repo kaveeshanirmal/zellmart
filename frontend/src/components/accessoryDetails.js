@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import "./CSS/productPage.css";
 
-const PhoneDetails = ({
+const ProductDetails = ({
     title,
     price,
     availability,
     brand,
-    platform,
     battery,
     batteryCharging,
     colors,
-    nfc,
     onOrderNow,
     phoneId,
     orderQuantity,
@@ -58,10 +56,7 @@ const PhoneDetails = ({
                 Brand: {brand} <br />
                 {battery} Battery <br />
                 {batteryCharging} <br />
-                {platform}
-                <br />
                 {colors} <br />
-                NFC {nfc === "yes" ? "enabled" : "disabled"}
             </p>
             <h4>Quanitity: </h4>
             <br />
@@ -96,4 +91,4 @@ const PhoneDetails = ({
     );
 };
 
-export default PhoneDetails;
+export default ProductDetails;

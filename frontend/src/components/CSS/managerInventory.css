@@ -1,0 +1,110 @@
+.inventory-container {
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.inventory-tabs {
+    margin-bottom: 1.5rem;
+}
+
+.inventory-tab {
+    color: #001d3d;
+}
+
+.inventory-tab.Mui-selected {
+    color: #001d3d;
+    font-weight: bold;
+}
+
+.search-field {
+    margin-bottom: 1rem;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.button-table {
+    padding: 6px;
+    font-size: small;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.add-button {
+    margin-bottom: 1rem;
+    background-color: #001d3d;
+    color: white;
+}
+
+.add-button:hover {
+    background-color: white;
+    color: #001d3d;
+    border: 2px solid #001d3d;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table-head {
+    background-color: #001d3d;
+}
+
+.inventory-table-cell {
+    color: white;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.inventory-table-row:nth-of-type(odd) {
+    background-color: #f5f5f5;
+}
+
+.inventory-table-row td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.edit-button {
+    margin-right: 0.5rem;
+    background-color: #f5f5f5;
+    color: #001d3d;
+    border: 2px solid #001d3d;
+}
+
+.edit-button:hover {
+    background-color: #001d3d;
+    color: white;
+}
+
+.remove-button {
+    background-color: #f5f5f5;
+    color: red;
+    border: 2px solid red;
+}
+
+.remove-button:hover {
+    background-color: red;
+    color: white;
+}
+
+td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #ddd;
+    font-size: small;
+}

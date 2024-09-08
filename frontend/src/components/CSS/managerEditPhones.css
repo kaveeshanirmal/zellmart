@@ -1,0 +1,57 @@
+.pef-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pef-title {
+    color: #001d3d;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.pef-form-group {
+    margin-bottom: 1rem;
+}
+
+.pef-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #001d3d;
+    font-weight: bold;
+}
+
+.pef-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #001d3d;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.pef-input:focus {
+    outline: none;
+    border-color: #003566;
+    box-shadow: 0 0 0 2px rgba(0, 29, 61, 0.2);
+}
+
+.pef-submit-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #001d3d;
+    color: #f1f1f1;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pef-submit-btn:hover {
+    background-color: #003566;
+}

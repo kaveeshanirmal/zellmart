@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import ProductDetails from "../components/ProductDetails";
+import ProductDetails from "../components/accessoryDetails";
 import "../components/CSS/productPage.css";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 
 const ProductPage = () => {
     const { id } = useParams();
     const [accessoryDetails, setAccessoryDetails] = useState(null);
+    const [orderQuantity, setOrderQuantity] = useState(1);
+    const type = "accessories";
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (id) {
@@ -35,10 +39,20 @@ const ProductPage = () => {
         quantity: accessoryDetails.quantity,
         description: accessoryDetails.description,
         Connectivity: accessoryDetails.features.Connectivity,
-        
+
         batteryType: accessoryDetails.battery.type,
         batteryCharging: accessoryDetails.battery.charging,
         colors: accessoryDetails.misc.colors,
+    };
+
+    const handleOrderNowClick = () => {
+        // Calculate total based on price and orderQuantity
+        const total = accessoryDetails.price * orderQuantity;
+
+        // Redirect to ConfirmationPage with phoneId, quantity, and total
+        navigate(`/confirmation/accessories/${id}`, {
+            state: { quantity: orderQuantity, total, type },
+        });
     };
 
     return (
@@ -62,7 +76,11 @@ const ProductPage = () => {
                     battery={product.batteryType}
                     batteryCharging={product.batteryCharging}
                     colors={product.colors}
-                    nfc={product.nfc}
+                    onOrderNow={handleOrderNowClick}
+                    phoneIdphoneId={id}
+                    orderQuantity={orderQuantity}
+                    setOrderQuantity={setOrderQuantity}
+                    type={type}
                 />
             </div>
             <div className="product-details-container">
@@ -74,103 +92,30 @@ const ProductPage = () => {
                 <table className="accessory-details">
                     <tbody>
                         <tr>
-                            <td>Model</td>
+                            <td>Model:</td>
                             <td>{product.title}</td>
                         </tr>
+
                         <tr>
-                            <td>Display</td>
-                            <td>{product.display}</td>
-                        </tr>
-                        <tr>
-                            <td>Resolution</td>
-                            <td>{product.resolution}</td>
-                        </tr>
-                        <tr>
-                            <td>Operating System</td>
-                            <td>{product.platform}</td>
-                        </tr>
-                        <tr>
-                            <td>Memory</td>
-                            <td>{product.memory}</td>
-                        </tr>
-                        <tr>
-                            <td>Memory card slot</td>
-                            <td>{product.cardslot}</td>
-                        </tr>
-                        <tr>
-                            <td>Main Camera Specs</td>
-                            <td>{product.mainCameraSpecs}</td>
-                        </tr>
-                        <tr>
-                            <td>Main Camera Features</td>
-                            <td>{product.mainCameraFeatures}</td>
-                        </tr>
-                        <tr>
-                            <td>Selfie Camera Specs</td>
-                            <td>{product.secSpecs}</td>
-                        </tr>
-                        <tr>
-                            <td>Selfie Camera Features</td>
-                            <td>{product.secFeatures}</td>
-                        </tr>
-                        <tr>
-                            <td>CPU</td>
-                            <td>{product.cpu}</td>
-                        </tr>
-                        <tr>
-                            <td>GPU</td>
-                            <td>{product.gpu}</td>
-                        </tr>
-                        <tr>
-                            <td>Chipset</td>
-                            <td>{product.chipset}</td>
-                        </tr>
-                        <tr>
-                            <td>Battery type</td>
+                            <td>Battery type:</td>
                             <td>{product.batteryType}</td>
                         </tr>
                         <tr>
-                            <td>Charging</td>
+                            <td>Charging:</td>
                             <td>{product.batteryCharging}</td>
                         </tr>
+
                         <tr>
-                            <td>Dimensions</td>
-                            <td>{product.dimensions}</td>
+                            <td>Connectivity:</td>
+                            <td>{product.Connectivity}</td>
                         </tr>
+
                         <tr>
-                            <td>Weight</td>
-                            <td>{product.weight}</td>
-                        </tr>
-                        <tr>
-                            <td>Build</td>
-                            <td>{product.build}</td>
-                        </tr>
-                        <tr>
-                            <td>Sim</td>
-                            <td>{product.sim}</td>
-                        </tr>
-                        <tr>
-                            <td>Wlan</td>
-                            <td>{product.wlan}</td>
-                        </tr>
-                        <tr>
-                            <td>Bluetooth</td>
-                            <td>{product.bluetooth}</td>
-                        </tr>
-                        <tr>
-                            <td>Positioning</td>
-                            <td>{product.positioning}</td>
-                        </tr>
-                        <tr>
-                            <td>NFC</td>
-                            <td>{product.nfc}</td>
-                        </tr>
-                        <tr>
-                            <td>Price</td>
+                            <td>Price:</td>
                             <td>{product.price}</td>
                         </tr>
                         <tr>
-                            <td>Misc</td>
+                            <td>Colors:</td>
                             <td>{product.colors}</td>
                         </tr>
                     </tbody>

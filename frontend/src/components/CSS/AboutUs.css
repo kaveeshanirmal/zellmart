@@ -1,0 +1,71 @@
+.about-us-container {
+    position: relative;
+    height: auto; /* Adjust to auto to allow content to grow dynamically */
+    min-height: 100vh; /* Ensure the container takes at least the full viewport height */
+    overflow: hidden;
+    padding-top: 80px; /* Push content down to avoid the navbar overlap */
+    padding-bottom: 100px; /* Add padding at the bottom to avoid the footer overlap */
+  }
+  
+  .background-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('./Images/bg2.jpg') no-repeat center center/cover;
+    filter: blur(10px);
+    z-index: 1;
+  }
+  
+  .about-us-overlay {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(0, 29, 61, 0.6); /* Optional overlay color */
+    color: white;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .about-us-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .about-us-header h1 {
+    color: #ffffff;
+    font-size: 48px;
+  }
+  
+  .about-us-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .about-us-content section {
+    margin-bottom: 30px;
+  }
+  
+  .about-us-content h2 {
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+  
+  .about-us-content p, .about-us-content ul {
+    font-size: 16px;
+    color: #e0e0e0;
+  }
+  
+  .about-us-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  
+  
+  
+  

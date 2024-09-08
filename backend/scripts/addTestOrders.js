@@ -27,7 +27,7 @@ const testOrders = [
         date: "2024-08-16",
         total: 999,
         quantity: 2,
-        status: "Shipped",
+        status: "Pending",
     },
     {
         orderId: 3,
@@ -40,7 +40,7 @@ const testOrders = [
         date: "2024-08-17",
         total: 849,
         quantity: 1,
-        status: "Delivered",
+        status: "Pending",
     },
     {
         orderId: 4,
@@ -53,7 +53,7 @@ const testOrders = [
         date: "2024-08-18",
         total: 649,
         quantity: 1,
-        status: "Cancelled",
+        status: "Processing",
     },
     {
         orderId: 5,
@@ -122,6 +122,19 @@ const testOrders = [
     },
     {
         orderId: 10,
+        phoneId: 5,
+        phoneModel: "iPhone 14",
+        customerId: 110,
+        customerName: "Amelia Moore",
+        customerNumber: 5558765,
+        customerAddress: "123 Spruce Street, Shelbyville",
+        date: "2024-08-24",
+        total: 999,
+        quantity: 1,
+        status: "Delivered",
+    },
+    {
+        orderId: 11,
         phoneId: 5,
         phoneModel: "iPhone 14",
         customerId: 110,
