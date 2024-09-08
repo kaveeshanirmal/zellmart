@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let Order = require("../models/orderSchema");
+const getNextSequenceValue = require("../utils/utility");
 
 // GET all orders
 router.route("/").get((req, res) => {
@@ -22,15 +23,29 @@ router.route("/:id").get((req, res) => {
         })
         .catch((err) => res.status(500).json("Error: " + err));
 });
-//put
+//post
 router.post("/", async (req, res) => {
     try {
-        const newOrder = new Order(req.body);
-        await newOrder.save(); // Save the order to the database
+        const nextOrderId = await getNextSequenceValue("orderId");
+
+        const newOrder = new Order({
+            orderId: nextOrderId,
+            phone: req.body.phone,
+            customer: req.body.customer,
+            quantity: req.body.quantity,
+            total: req.body.total,
+            status: req.body.status,
+            orderDate: req.body.orderDate || new Date(),
+        });
+
+        await newOrder.save();
         res.status(201).send(newOrder);
     } catch (error) {
         console.error("Error saving order:", error);
-        res.status(500).send({ message: "Internal Server Error" });
+        res.status(500).send({
+            message: "Internal Server Error",
+            error: error.message,
+        });
     }
 });
 

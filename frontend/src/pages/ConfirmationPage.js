@@ -1,23 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode"; // Import jwtDecode correctly
 import "../components/CSS/ConfirmationPage.css";
 
 function ConfirmationPage() {
     const location = useLocation();
     const navigate = useNavigate();
     const { phoneId } = useParams(); // Get phoneId from URL
-    console.log("PhoneId:", phoneId);
-    // Assuming state is passed with total
     const { quantity = 0, total = 0, type = "" } = location.state || {};
+
     const [products, setProducts] = useState([]);
     const [customerName, setCustomerName] = useState("");
     const [customerAddress, setCustomerAddress] = useState("");
     const [customerPhone, setCustomerPhone] = useState("");
+    const [customerId, setCustomerId] = useState(null);
+
+    // Fetch customerId from JWT token stored in localStorage
+    useEffect(() => {
+        const token = localStorage.getItem("token"); // Check if token exists
+        if (token) {
+            console.log("JWT Token:", token);
+            try {
+                const decodedToken = jwtDecode(token); // Decode the token
+                console.log("Decoded Token:", decodedToken);
+
+                const customerId = decodedToken.customer?.id;
+                console.log("customerId:", customerId);
+
+                // Check if the customerId exists in the token
+                if (decodedToken && customerId) {
+                    setCustomerId(customerId);
+                } else {
+                    console.error("customerId not found in the token.");
+                }
+            } catch (error) {
+                console.error("Error decoding token:", error);
+            }
+        } else {
+            console.error("No JWT token found in localStorage.");
+        }
+    }, []);
 
     useEffect(() => {
-        console.log("useEffect triggered. Type:", type, "PhoneId:", phoneId);
-
         const fetchData = async () => {
             let url;
             if (type === "phones") {
@@ -26,30 +51,25 @@ function ConfirmationPage() {
                 url = `http://localhost:5000/api/accessories/${phoneId}`;
             }
 
-            console.log("Fetching from URL:", url);
-
             try {
                 const response = await fetch(url);
-                console.log("Response status:", response.status);
-
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
                 const data = await response.json();
-                console.log("Received data:", data);
-
                 setProducts([
                     {
+                        _id: data._id,
                         image: data.imgURL,
                         name: data.model,
                         price: data.price,
                         quantity: quantity,
                     },
                 ]);
+                console.log("Phone's objectId: :", data._id);
             } catch (error) {
                 console.error(`Error fetching ${type} details:`, error);
-                // You might want to set an error state here to display to the user
             }
         };
 
@@ -59,16 +79,17 @@ function ConfirmationPage() {
     }, [phoneId, quantity, type]);
 
     const handleConfirm = () => {
+        if (!customerId) {
+            console.error("No customerId found. Cannot place order.");
+            return;
+        }
+
         const orderData = {
-            phoneId,
-            customerId: customerPhone,
-            customerName,
-            customerAddress,
-            customerPhone,
-            orderDate: new Date(),
-            quantity,
-            total,
-            status: "Pending",
+            phone: products[0]?._id || phoneId, // Phone's ObjectId
+            customer: customerId, // Customer's ObjectId from the decoded token
+            quantity, // Number of items ordered
+            total, // Total price of the order
+            status: "Pending", // Initial status of the order
         };
 
         axios
@@ -80,13 +101,10 @@ function ConfirmationPage() {
             .catch((error) => {
                 console.error("Error confirming order:", error);
                 if (error.response) {
-                    // Server responded with a status other than 2xx
                     console.error("Server response:", error.response.data);
                 } else if (error.request) {
-                    // No response was received from the server
                     console.error("No response received:", error.request);
                 } else {
-                    // Something else happened while setting up the request
                     console.error("Error setting up request:", error.message);
                 }
             });

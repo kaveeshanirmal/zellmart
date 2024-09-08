@@ -1,120 +1,100 @@
-import React, { useState } from 'react';
-import { Card, CardContent, Typography, Grid, Table, TableBody, TableCell, TableHead, TableRow, TextField, Button, Select, MenuItem } from '@mui/material';
-import './CSS/manager.css';
+import React, { useState, useEffect } from "react";
+import {
+    Grid,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    TextField,
+    Button,
+    Select,
+    MenuItem,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import "./CSS/manager.css";
 
 const Dashboard = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [orders, setOrders] = useState([
-        {
-            orderId: 1,
-            phoneId: 101,
-            phoneModel: 'product 1',
-            customerId: 1001,
-            customerName: 'Anna M. Hines',
-            customerNumber: '(+1)-555-1564-261',
-            customerAddress: 'Burr Ridge/Illinois',
-            date: '29 April 2024',
-            total: 120,
-            quantity: 1,
-            status: 'Processing',
-            isEditing: false
-        },
-        {
-            orderId: 2,
-            phoneId: 102,
-            phoneModel: 'product 2',
-            customerId: 1002,
-            customerName: 'Judith H. Fritsche',
-            customerNumber: '(+57)-305-5579-759',
-            customerAddress: 'SULLIVAN/Kentucky',
-            date: '25 April 2024',
-            total: 70,
-            quantity: 1,
-            status: 'Processing',
-            isEditing: false
-        },
-        {
-            orderId: 3,
-            phoneId: 103,
-            phoneModel: 'product 3',
-            customerId: 1003,
-            customerName: 'Peter T. Smith',
-            customerNumber: '(+33)-655-5187-93',
-            customerAddress: 'Yreka/California',
-            date: '25 April 2024',
-            total: 200,
-            quantity: 1,
-            status: 'Processing',
-            isEditing: false
-        },
-        {
-            orderId: 4,
-            phoneId: 104,
-            phoneModel: 'product 4',
-            customerId: 1004,
-            customerName: 'Emmanuel J. Delcid',
-            customerNumber: '(+30)-693-5553-637',
-            customerAddress: 'Atlanta/Georgia',
-            date: '21 April 2024',
-            total: 150,
-            quantity: 1,
-            status: 'Processing',
-            isEditing: false
-        },
-        {
-            orderId: 5,
-            phoneId: 105,
-            phoneModel: 'product 5',
-            customerId: 1005,
-            customerName: 'William J. Cook',
-            customerNumber: '(+91)-855-5446-150',
-            customerAddress: 'Rosenberg/Texas',
-            date: '18 April 2024',
-            total: 100,
-            quantity: 1,
-            status: 'Processing',
-            isEditing: false
-        }
-    ]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:5000/api/orders")
+            .then((response) => response.json())
+            .then((data) => {
+                // Filter orders with status 'pending'
+                const pendingOrders = data.filter(
+                    (order) => order.status !== "Pending"
+                );
+                setOrders(pendingOrders); // Store only the pending orders in state
+            });
+    }, []);
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
     };
 
     const handleEditClick = (orderId) => {
-        setOrders(prevOrders =>
-            prevOrders.map(order =>
-                order.orderId === orderId ? { ...order, isEditing: !order.isEditing } : order
+        setOrders((prevOrders) =>
+            prevOrders.map((order) =>
+                order.orderId === orderId
+                    ? { ...order, isEditing: !order.isEditing }
+                    : order
             )
         );
     };
 
     const handleStatusChange = (orderId, newStatus) => {
-        setOrders(prevOrders =>
-            prevOrders.map(order =>
-                order.orderId === orderId ? { ...order, status: newStatus, isEditing: false } : order
+        setOrders((prevOrders) =>
+            prevOrders.map((order) =>
+                order.orderId === orderId
+                    ? { ...order, status: newStatus, isEditing: false }
+                    : order
             )
         );
     };
+    const handleTrackOrder = (orderId) => {
+        navigate(`/trackorder/${orderId}`);
+    };
 
-    const totalRevenue = orders
-        .filter(order => order.status === 'Completed')
-        .reduce((sum, order) => sum + order.total, 0);
+    const handleDelete = (orderId) => {
+        fetch(`http://localhost:5000/api/orders/${orderId}`, {
+            method: "DELETE",
+        })
+            .then(() => {
+                // Update the orders state to remove the deleted order
+                setOrders((prevOrders) =>
+                    prevOrders.filter((order) => order.orderId !== orderId)
+                );
+            })
+            .catch((error) => console.error("Error deleting order:", error));
+    };
 
-    const totalSales = orders.filter(order => order.status === 'Completed').length;
-
-    const filteredOrders = orders.filter((order) =>
-        order.orderId.toString().includes(searchQuery.toLowerCase()) ||
-        order.phoneModel.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        order.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        order.customerNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        order.customerAddress.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        order.status.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredOrders = orders.filter(
+        (order) =>
+            order.orderId.toString().includes(searchQuery.toLowerCase()) ||
+            order.phoneModel
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+            order.customerName
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+            order.customerNumber
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+            order.customerAddress
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+            order.status.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
-        <div style={{ width: '80%', marginLeft: '15%' }}>
-            <br/><br/><br/><br/>
+        <div style={{ width: "80%", marginLeft: "15%" }}>
+            <br />
+            <br />
+            <br />
+            <br />
             <center>
                 <h1>Orders</h1>
             </center>
@@ -125,27 +105,64 @@ const Dashboard = () => {
                 fullWidth
                 value={searchQuery}
                 onChange={handleSearch}
-                className='manager-textField'
-                style={{ marginTop: '30px', width: '800px', padding: '8px' }}
+                className="manager-textField"
+                style={{
+                    marginTop: "30px",
+                    width: "800px",
+                    padding: "8px",
+                    marginLeft: "-80px",
+                }}
             />
 
-            <Grid container spacing={3} style={{ marginTop: '5px' }}>
+            <Grid
+                container
+                spacing={3}
+                style={{ marginTop: "5px", marginLeft: "-100px" }}
+            >
                 <Grid item xs={12} md={8}>
                     <Table>
-                        <TableHead style={{ backgroundColor: '#001d3d'  }}>
-                            <TableRow >
-                                <TableCell style={{color : "white"}}>Order ID</TableCell>
-                                <TableCell style={{color : "white"}}>Phone ID</TableCell>
-                                <TableCell style={{color : "white"}}>Customer ID</TableCell>
-                                <TableCell style={{color : "white"}}>Date</TableCell>
-                                <TableCell style={{color : "white"}}>Product Model</TableCell>
-                                <TableCell style={{color : "white"}}>Price</TableCell>
-                                <TableCell style={{color : "white"}}>Quantity</TableCell>
-                                <TableCell style={{color : "white"}}>Customer Name</TableCell>
-                                <TableCell style={{color : "white"}}>Phone No.</TableCell>
-                                <TableCell style={{color : "white"}}>Address</TableCell>
-                                <TableCell style={{color : "white"}}>Status</TableCell>
-                                <TableCell align="center" style={{color : "white"}}>Actions</TableCell>
+                        <TableHead style={{ backgroundColor: "#001d3d" }}>
+                            <TableRow>
+                                <TableCell style={{ color: "white" }}>
+                                    Order ID
+                                </TableCell>
+                                <TableCell style={{ color: "white" }}>
+                                    Phone ID
+                                </TableCell>
+                                <TableCell style={{ color: "white" }}>
+                                    Customer ID
+                                </TableCell>
+                                <TableCell style={{ color: "white" }}>
+                                    Date
+                                </TableCell>
+                                <TableCell style={{ color: "white" }}>
+                                    Product Model
+                                </TableCell>
+                                <TableCell style={{ color: "white" }}>
+                                    Price
+                                </TableCell>
+                                <TableCell style={{ color: "white" }}>
+                                    Quantity
+                                </TableCell>
+                                <TableCell style={{ color: "white" }}>
+                                    Customer Name
+                                </TableCell>
+                                <TableCell style={{ color: "white" }}>
+                                    Phone No.
+                                </TableCell>
+                                <TableCell style={{ color: "white" }}>
+                                    Address
+                                </TableCell>
+                                <TableCell style={{ color: "white" }}>
+                                    Status
+                                </TableCell>
+                                <TableCell
+                                    colSpan={3}
+                                    align="center"
+                                    style={{ color: "white" }}
+                                >
+                                    Actions
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -154,38 +171,92 @@ const Dashboard = () => {
                                     <TableCell>{order.orderId}</TableCell>
                                     <TableCell>{order.phoneId}</TableCell>
                                     <TableCell>{order.customerId}</TableCell>
-                                    <TableCell>{order.date}</TableCell>
+                                    <TableCell>{order.orderDate}</TableCell>
                                     <TableCell>{order.phoneModel}</TableCell>
                                     <TableCell>{order.total}</TableCell>
                                     <TableCell>{order.quantity}</TableCell>
                                     <TableCell>{order.customerName}</TableCell>
-                                    <TableCell>{order.customerNumber}</TableCell>
-                                    <TableCell>{order.customerAddress}</TableCell>
+                                    <TableCell>
+                                        {order.customerNumber}
+                                    </TableCell>
+                                    <TableCell>
+                                        {order.customerAddress}
+                                    </TableCell>
                                     <TableCell>
                                         {order.isEditing ? (
                                             <Select
                                                 value={order.status}
-                                                onChange={(e) => handleStatusChange(order.orderId, e.target.value)}
+                                                onChange={(e) =>
+                                                    handleStatusChange(
+                                                        order.orderId,
+                                                        e.target.value
+                                                    )
+                                                }
                                             >
-                                                <MenuItem value="Processing">Processing</MenuItem>
-                                                <MenuItem value="Out for Delivery">Out for Delivery</MenuItem>
-                                                <MenuItem value="Completed">Completed</MenuItem>
+                                                <MenuItem value="Processing">
+                                                    Processing
+                                                </MenuItem>
+                                                <MenuItem value="Out for Delivery">
+                                                    Out for Delivery
+                                                </MenuItem>
+                                                <MenuItem value="Completed">
+                                                    Completed
+                                                </MenuItem>
                                             </Select>
                                         ) : (
                                             order.status
                                         )}
                                     </TableCell>
                                     <TableCell align="center">
-                                        {order.status !== 'Completed' && (
+                                        {order.status !== "Completed" && (
                                             <Button
                                                 variant="outlined"
                                                 color="primary"
-                                                style = {{backgroundColor: "#001d3d" , color : "white"}}
-                                                onClick={() => handleEditClick(order.orderId)}
+                                                style={{
+                                                    backgroundColor: "#001d3d",
+                                                    color: "white",
+                                                }}
+                                                onClick={() =>
+                                                    handleEditClick(
+                                                        order.orderId
+                                                    )
+                                                }
                                             >
-                                                {order.isEditing ? 'Save' : 'Edit'}
+                                                {order.isEditing
+                                                    ? "Save"
+                                                    : "Edit"}
                                             </Button>
                                         )}
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <Button
+                                            variant="outlined"
+                                            color="primary"
+                                            style={{
+                                                backgroundColor: "#001d3d",
+                                                color: "white",
+                                            }}
+                                            onClick={() =>
+                                                handleTrackOrder(order.orderId)
+                                            }
+                                        >
+                                            Track Order
+                                        </Button>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <Button
+                                            variant="outlined"
+                                            color="error"
+                                            style={{
+                                                backgroundColor: "#d32f2f",
+                                                color: "white",
+                                            }}
+                                            onClick={() =>
+                                                handleDelete(order.orderId)
+                                            }
+                                        >
+                                            Delete
+                                        </Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
