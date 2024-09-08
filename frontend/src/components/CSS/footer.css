@@ -135,3 +135,17 @@
     margin-bottom: 20px;
   }
 }
+
+.imagee {
+  width: 100px; /* Adjust as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-top: 10px; /* Space between text and image */
+  margin-right: 100px;
+  
+}
+
+.imagee img {
+  width: 100%; /* Make the image responsive within its container */
+  height: auto;
+  
+}

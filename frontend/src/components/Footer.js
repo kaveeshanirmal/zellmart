@@ -3,6 +3,8 @@ import CurrentTime from './CurrentTime';
 import './CSS/footer.css'
 import { ThemeContext } from './ThemeContextProvider';
 import { Link } from 'react-router-dom';
+import image from './CSS/Images/zellimage.jpg';
+
 
 const Footer = () => {
   const { darkMode } = useContext(ThemeContext);
@@ -18,7 +20,12 @@ const Footer = () => {
         <div className="footer-content">
           <div className="footer-section">
             <h3>ZellMart</h3>
+            <div className='imagee'>
+            <img src={image} alt="logo"/></div>
           </div>
+          
+            
+          
           <div className="footer-section">
             <h3>Contact Information</h3>
             <p><strong>Address:</strong> Reid Avenue, Colombo 07, Sri Lanka</p>
