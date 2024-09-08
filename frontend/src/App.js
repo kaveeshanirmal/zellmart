@@ -29,6 +29,7 @@ import SearchResults from "./components/SearchResults.js";
 import AboutUs from "./components/AboutUs.js";
 import ConfirmationPage from "./pages/ConfirmationPage.js";
 import TrackOrder from "./components/trackorder.js";
+import ScrollToTop from "./components/ScrollToTop"; 
 
 function App() {
     const token = localStorage.getItem("token");
@@ -74,7 +75,9 @@ function App() {
                     accessories={accessories}
                     setFilteredProducts={setFilteredProducts}
                 />
+                <ScrollToTop />
                 <Routes>
+                
                     <Route path="/" element={<Home />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/ContactUs" element={<ContactUs />} />

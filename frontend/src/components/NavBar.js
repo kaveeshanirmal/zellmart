@@ -3,7 +3,7 @@ import { ThemeContext } from "./ThemeContextProvider";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import "./CSS/navBar.css";
-import logo from "./CSS/Images/CLOUDRestaurantLogo.png";
+import image from './CSS/Images/zellimage.jpg';
 import SwitchButton from "./SwitchButton";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -77,16 +77,19 @@ export default function NavBar({ phones, accessories, setFilteredProducts }) {
                 darkMode ? "dark" : ""
             }`}
         >
+             <img src={image} alt="ZellMart Logo" className="logoPic" />
             <div className="navbarLeft">
                 <div className="navBarLogo">
+               
                     <Link to="/Home">
                         <h2
                             className={`navBarTitle ${isFixed ? "fixed" : ""} ${
                                 darkMode ? "dark" : ""
                             }`}
                         >
-                            ZellMart
+                            ZellMart 
                         </h2>
+                        
                     </Link>
                 </div>
             </div>
