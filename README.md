@@ -10,7 +10,16 @@ A web-based marketplace for buying and selling mobile phones and accessories. Bu
 
 ## Features
 
--   **To be completed**
+-    🛒 Product Listings: Detailed phone listings with specifications, pricing, and availability
+-    📲 Inventory Management: Manager role for efficient inventory and product management
+
+-    🔐 JWT-based Authentication: Secure login system with personalized customer profiles
+
+-    💳 Order Management: Track order history and status updates with ease
+
+-    💻 Responsive Design: Optimized for both mobile and desktop devices
+
+
 
 ## Tech Stack
 
